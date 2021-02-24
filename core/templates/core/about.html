@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block thispage %} 
+<style>
+
+
+  div.title {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+  }
+  div.title:hover {
+    background-color: #05a081!important;
+    color: white;
+  }
+
+
+</style>
+
+{% endblock %}
+
+{% block content %} 
+<div class=" container top bot col-12 col-md-8">
+  
+  {% for question in questions %}
+  <div class="faq container col-12 mb-3">
+    <div class="container title col-12">
+      <div class="container col-12">     
+        <h4>{{question.title}}</h4>
+      </div>
+    </div>
+    <div class="container text-justify col-12">
+      <p class="faq">{{question.text|safe}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

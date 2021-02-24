@@ -1,0 +1,160 @@
+/* ALL PAGES AND DEVICES */
+* {
+    box-sizing: border-box;
+    font-family: 'Exo', sans-serif;
+}
+body {
+    /*background-image: url("../img/desktop.jpg");*/
+    background-color: white !important;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0%;
+    padding: 0%;
+}
+nav {
+    background-color:#232a34 !important;
+    width: 100vw;
+    margin: 0px;
+    height: 10vh;
+}
+a.logo {
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 1.1em;
+    /*background-color: #05a081;*/
+    border-radius: 10px;
+    font-weight: lighter;
+
+}
+/* Nav mobile*/
+i.fa-angle-down {
+    color:  white !important;
+    float: right;
+    width: 10vw;
+}
+a.nav-link{
+    color:  #232a34 !important;
+    font-size: 1,6em!important;
+}
+div.bg {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+    min-height: 45vh;
+}
+input.btn {
+    background-color: #05a081 !important;
+    color: white !important;
+    border-color: #232a34
+}
+
+div {
+    padding: 1vh;
+}
+div.zero {
+    padding: 0px;
+    margin: 0px;
+}
+
+button.home {
+    background-color: #05a081;
+    height: 5vh;
+    border-radius: 20px;
+    margin-top:2vh;
+}
+
+input.home {
+    background-color:#05a081;
+    border-radius: 20px;
+}
+div.top {
+    margin-top: 10vh;
+}
+div.bot{
+    margin-bottom: 15 !important;
+}
+/* Footer */
+footer {
+    background-color:#dfe0e1 !important;
+    width: 100vw;
+    height: 12vh;
+    padding-top: 1vh;
+    margin: 0%;
+}
+a.envelope {
+    color: black !important;
+    width: 10vh !important;
+}
+
+/* MOBILE */
+@media (min-width: 200px) and (max-width:768px){ 
+    body {        
+        background-attachment: fixed;
+    }
+    div.navmob {/*
+        background-color:#243040 !important;*/
+        background-color:#232a34 !important;
+        width: 100vw;
+        margin: 0px;
+        height: 15vh;
+    }
+ 
+    button.mobile{
+        background-color:#232a34 !important;
+    }
+    nav.navbar {
+        display: none;
+    }
+
+    /* Subnav */
+    div.subnav {
+        background-color:#6E6E70 !important;
+        width: 100vw;
+        height: 20vh;
+        color: white;
+    }
+    a.logo {
+        
+        margin-top: 2%;
+    }
+    /* */
+    div.top {
+        margin-top: 10vh;
+    }
+    div.bot{
+        margin-bottom: 15 !important;
+    }
+    /* Footer */
+    footer {
+        background-color:#dfe0e1 !important;
+        width: 100vw;
+        height: 20vh;
+        padding-top: 1vh;
+        margin-top: 10vh;
+    }    
+}
+
+
+/* DESKTOP */
+@media (min-width:768px){
+    div.navmob {
+        display: none;
+    }
+    a.nav-link{
+        color:  white !important;
+        font-size: 1,5em!important;
+    }
+    nav.navbar {
+    background-color:#232a34 !important;
+    visibility: visible;
+    height: 10vh;
+    margin: 0% !important;
+    }
+    div.top {
+        margin-top: 15vh;
+    }
+    div.bot{
+        margin-bottom: 20vh !important;
+    }
+    
+}
+ 

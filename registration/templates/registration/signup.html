@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+{% block title %}Registro{% endblock %}
+
+{% block thispage %}
+  <style>.errorlist{color:red;} label{display:none}</style>
+
+  {% if form.errors %}
+    <style>  
+      span.helptext{
+        font-size: .9em;
+      }
+      form ul li{
+        font-size: .9em;
+      }
+    </style>
+  {% else %}
+    <style>  
+      span.helptext{
+        display: none;
+      }
+      form ul li{
+        display: none;
+      }
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="container bg top bot col-11 col-md-8">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form action="" method="post">{% csrf_token %}
+          <h3 class="mb-4">Registro</h3>
+          {{form.as_p}}
+          <p><input type="submit" class="btn home btn-block" value="Confirmar" ></p>
+        </form>
+       </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

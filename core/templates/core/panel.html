@@ -1,0 +1,235 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Estado de mi inversión{% endblock %}
+
+{% block thispage %}
+<style>
+
+    div.subnav {
+        background-color:#6E6E70 !important;
+        height: 10vh;
+        width: 100vw !important;
+        color: white;
+        margin-top: 0% !important;
+    }
+    a.wallet, h6 {
+        color: red;
+    }
+    div.master  {
+        overflow: hidden;
+        width: 80vw;
+        margin-left: 10vw;
+        margin-top: 8vh;
+    }
+    img.currency {
+        height: 5vh;
+        margin-left: 2.5vh;
+        margin-top: 2.5vh;
+        margin-right: 0%;
+    }
+    div.currency {
+        border-right: solid 1px;
+    }
+    div.panel-title {
+        background-color: #dfe0e1 !important;
+        border-radius: 10px;
+        margin-bottom: 4vh;
+        padding-right: 5vh;
+       
+    } 
+    div.panel-top {
+        background-color: #dfe0e1 !important;
+        border-radius: 10px;
+        min-height: 15vh;
+        margin-bottom: 4vh;
+        padding: 5vh;
+    } 
+    div.panel-bot {
+        background-color: #dfe0e1 !important;
+        border-radius: 10px;
+        min-height: 15vh;
+        margin-bottom: 5vh;
+        padding-right: 5vh;
+        padding-left: 4vh;
+        padding-top: 3vh;
+
+
+    } 
+    button.pendiente {
+    
+    height: 5vh;
+    border-radius: 20px;
+    border-style: dashed;
+    margin-top:2vh;
+}
+    p.baja {
+        color: #FF3131;
+    }
+    p.alza {
+        color: #94D191;
+    }
+    a {
+        color:white;
+    }
+     @media (min-width:768px){
+    a.home {
+        color:white;
+    }
+    }
+</style>
+{% endblock %}
+{% block content %} 
+
+<!-- Cliente activo -->
+{% if request.user == client.user %}
+    {% if client.client_active == True%}
+
+        <!-- SubNav-->
+        <div class="row subnav zero">
+            
+            <marquee behavior="scroll" direction="">
+            </marquee>   
+                {% for obj in data %}  
+                {% if obj.market_cap_rank < 5%}
+                    <!-- Ranking 4 monedas -->
+                    <div class="row currency zero col-xs-8 col-md-3 float-left">
+                        
+                        <div class="container zero col-3">
+                            <img src="{{obj.image}}" class="currency float-left" alt="">
+                        </div>
+
+                        <div class="container zero col-5 float-left pt-3">
+                            <h5>
+                                {{obj.name}}
+                            </h5>                        
+                            <p>
+                                {{obj.symbol|upper}}
+                            </p>
+                        </div>
+                        
+                        <div class="container zero col-4 float-left pt-3">
+                            <h5>
+                                € {{obj.current_price|floatformat:1}}
+                            </h5>
+                            {% if obj.market_cap_change_percentage_24h < 0 %}
+                            <p class="baja">
+                                {{obj.market_cap_change_percentage_24h|floatformat:2}}%  
+                            </p>
+                            {% else %}
+                            <p class="alza">
+                                {{obj.market_cap_change_percentage_24h|floatformat:2}}%  
+                            </p>
+                            {% endif %}   
+                        </div> 
+                        
+                        
+                    </div>        
+                    {% endif %}
+                    {% endfor %}
+                    
+               
+                </div>
+                <!--
+            <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
+
+                    <div id="coinmarketcap-widget-marquee" coins="1,1027,825" currency="EUR" theme="dark" transparent="false" show-symbol-logo="true"></div>
+                -->
+                
+                
+                <!-- Panel -->  
+                <div class="row master">
+        
+                <div class="row col-12">
+                    <div class="container panel-title col-12">
+                        <h4 class="float-left col-7">Cliente: {{request.user.first_name}} {{request.user.last_name}}</h4> 
+                        <h4 class="float-right">Fecha de inicio: {{client.start|date:"SHORT_DATE_FORMAT"}}</h4>
+                    </div>
+                    <div class="container text-center panel-bot col-5">
+                        
+                        {% if client.money %}
+                            <h4>Inversión inicial:</h4> 
+                                <h2>
+                                    € {{client.money}}
+                                </h2>
+                            
+                        {% else %}
+                            <h4>Todavía no ha iniciado ninguna inversión.</h4>
+                        {% endif %}                    
+                    </div>
+                    <div class="container  text-center panel-bot col-6">
+                        <h4>
+                            {% if client.start %}
+                                Duración de su inversión: <br>  
+                        </h4>
+                                <h2>
+                                    {{client.days}} días 
+                                </h2>
+                            <h4>
+
+                                Su inversión finaliza el: {{diferencia}}                               
+                            </h4>
+
+                            {% else %}
+                        {% endif %}
+                        
+                    </div>                 
+                </div>
+                
+                <div class="row col-12">
+                    <div class="container text-center panel-bot col-6">
+                        {% if client.gain %}
+                        <h4>Su ganancia es de:</h4>
+                            <h2>
+                                € {{client.gain}}
+                            </h2>
+                        {% else %}
+                            <h4>
+                                Aún no se han registrado ganancias, las mismas se actualizan semanalmente. 
+                            </h4>
+                        {% endif %}
+                    </div>
+                    <div class="container  text-center panel-bot col-5">                        
+                        {% if client.wallet %}
+                        <h4>
+                            <a href="{{user.profile.wallet}}" class="wallet ml-4 mr-5">Mi billetera virtual</a> 
+                        </h4>
+                        {% else %}
+                        <h4>
+                            <a href="{%url 'profile' %}" class="wallet ml-4 mr-5">Agregar billetera</a> 
+                        </h4>
+                        {% endif %}
+                    </div>                 
+                </div>
+
+                <div class="container text-center col-12">
+                    {% if client.paybutton == True %}
+                        <button class="home col-5 mb-5"><a href="{{client.urlbutton}}">Pagar €{{client.money}}</a></button>
+                    {% else %}
+                        <button class="pendiente col-5 mb-5">No existe inversión pendiente de pago</button>
+                            
+                    {% endif %}                        
+                </div> 
+
+  
+        </div>
+    
+    {% else %}
+        <div class="container text-center top bot bg col-sm-11 col-md-6 p-5">
+        <h4>Su solicitud se encuentra en proceso de admisión, en breve lo activaremos. <br><br><br>Cualquier consulta escribir a gomoneyplanet@gmail.com</h4>
+        <button class="home col-6 mt-5"><a class="visible" href="{% url 'logout' %}">Logout</a></button> <br>
+        </div>  
+    {% endif %}
+
+{% endif %}
+
+<!-- Api all cryptos -->
+{% comment %}
+{% for obj in data %}   
+<div class="container bg bot">
+    <img src="{{obj.image}}" class="currency float-left" alt="">
+    {{obj}} 
+</div>
+{% endfor %}
+{% endcomment %}
+
+{% endblock %}
