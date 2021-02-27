@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from core.models import Currency
+from core.models import Currency, Plan
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from ckeditor.fields import RichTextField
@@ -12,7 +12,7 @@ def custom_upload_to(instance, filename):
     old_instance.wallet.delete()
     return 'profiles/' + filename
 
-# Models Profile and Seller
+# Models 
     
 class Seller(models.Model):
     user = models.ForeignKey(User, verbose_name= "Nombre de usuario", on_delete=models.CASCADE, null=True, blank=True)
@@ -45,14 +45,12 @@ class Profile(models.Model):
     days= models.IntegerField(verbose_name= "Días contrato", null=True, blank=True)
     start = models.DateField(verbose_name= "Fecha de inicio", default=None, null=True, blank=True)
     money = models.IntegerField(verbose_name= "Dinero invertido", default=None, null=True, blank=True)
-    gain= models.IntegerField(verbose_name= "Ganancia", default=None, null=True, blank=True)
-    currencys= models.ForeignKey(Currency, on_delete=models.CASCADE, null=True, blank=True)
-    wallet = models.URLField(verbose_name= "Billetera", default=None, max_length=500, null=True, blank=True)
+    gain= models.IntegerField(verbose_name= "Ganancia acumulada", default=None, null=True, blank=True)
+    currencys= models.ForeignKey(Currency, verbose_name= "Moneda elegida ", on_delete=models.CASCADE, null=True, blank=True)
+    #plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.CASCADE, null=True, blank=True)
     phone= models.IntegerField(verbose_name= "Teléfono", default=None, null=True, blank=True)
     seller= models.ForeignKey(Seller, verbose_name= "Vendedor asignado", on_delete=models.CASCADE, null=True, blank=True)
     client_active = models.BooleanField(default=False, verbose_name= "Cliente activo")
-    paybutton = models.BooleanField(verbose_name= "Botón de pago", default=False)
-    urlbutton = models.URLField(verbose_name= "Link Paypal", default=None, max_length=500, null=True, blank=True)
 
     class Meta:
         verbose_name= "Perfil Cliente"

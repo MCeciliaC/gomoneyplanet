@@ -5,7 +5,7 @@ from .models import Profile, Seller, User
 class ProfileAdmin(admin.ModelAdmin):
     verbose_name= "Tablero del usuario"
     #readonly_fields= ('user', 'wallet')
-    list_display = ['Nombre', 'Apellido',  'days', 'money', 'gain', 'phone', 'email', 'seller', 'start',]
+    list_display = ['Nombre', 'Apellido',  'days', 'money', 'gain', 'phone', 'email', 'seller', 'start']
 
 class SellerAdmin(admin.ModelAdmin):
     verbose_name= "Vendedor"

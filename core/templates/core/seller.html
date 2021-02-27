@@ -9,12 +9,12 @@ div.line:hover {
 }
 p.edit{
     float: left !important;
-    width: 2%;
+    width: 4%;
     margin-right: 2%;
 }
 p.client {
     float: left !important;
-    width: 8%;
+    width: 12%;
     margin-right: 1%;
     text-align: left;
 }
@@ -92,17 +92,14 @@ function registrar() {
                 <p class="client">Invertido</p>
                 <p class="client">Ganancia</p>
                 <p class="client">Monedas</p>
-                <p class="client">Telefono</p>
-                <p class="client ">Activo</p>
-                <p class="client ">Botón pago</p>
-                <p class="client lg last">Link botón</p>
+                <p class="">Telefono</p>
             </div> 
             <br>
             {% for client in seller.profile_set.all %}
             <div class="container col-12 mb-3 line">
 
                 {% if client.client_active == True%}     
-                        <p class="edit" onClick="editClient({{client.id}})" data-toggle="modal" data-target="#myModal")"><i class="fas fa-user-edit"></i></p>                
+                    <p class="edit" onClick="editClient({{client.id}})" data-toggle="modal" data-target="#myModal")"><i class="fas fa-user-edit"></i></p>                
                     {% if client %}                   
                     <p class="client lg">{{client.user.first_name}} {{client.user.last_name}}</p>
                     {% endif %}
@@ -138,28 +135,11 @@ function registrar() {
                     {% endif %}
                   
                     {% if client.phone %}
-                    <p class="client">{{client.phone}}</p>
+                    <p class="">{{client.phone}}</p>
                     {% else %}
-                    <p class="client">-</p>
+                    <p class="">-</p>
                     {% endif %}
 
-                    {% if client.client_active == True %}
-                    <p class="client "> Sí</p>
-                    {% else %}
-                    <p class="client"> No</p>
-                    {% endif %}
-
-                    {% if client.paybutton == True %}
-                    <p class="client ">Visible</p>
-                    {% else %}
-                    <p class="client">No visible</p>
-                    {% endif %}
-
-                    {% if client.urlbutton %}
-                    <p class="client lg last">{{url.button}}</p>
-                    {% else %}
-                    <p class="client lg last">Añadir url</p>
-                    {% endif %}
                 {% endif %}
             </div>        
             {% endfor %}
@@ -171,7 +151,16 @@ function registrar() {
     </div>
 
 
-  <!-- Modal 
+<!-- Modal -->
+<div class="modal fade" id="creacion" role="dialog">
+
+</div>
+
+<div class="modal fade" id="edicion" role="dialog">
+    
+</div>
+
+  <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -194,7 +183,7 @@ function registrar() {
       </div>
     </div>
   </div>
--->
+
   
   <!-- Vendedor pendiente de activacion -->
   {% else %}

@@ -21,16 +21,16 @@ nav {
 a.logo {
     font-family: 'Alfa Slab One', cursive;
     font-size: 1.1em;
-    /*background-color: #05a081;*/
     border-radius: 10px;
     font-weight: lighter;
 
 }
+
 /* Nav mobile*/
-i.fa-angle-down {
+button.dropdown-toggle {
     color:  white !important;
     float: right;
-    width: 10vw;
+    width: 7vw;
 }
 a.nav-link{
     color:  #232a34 !important;
@@ -46,7 +46,6 @@ input.btn {
     color: white !important;
     border-color: #232a34
 }
-
 div {
     padding: 1vh;
 }
@@ -54,14 +53,12 @@ div.zero {
     padding: 0px;
     margin: 0px;
 }
-
 button.home {
     background-color: #05a081;
     height: 5vh;
     border-radius: 20px;
     margin-top:2vh;
 }
-
 input.home {
     background-color:#05a081;
     border-radius: 20px;
@@ -81,8 +78,10 @@ footer {
     margin: 0%;
 }
 a.envelope {
-    color: black !important;
-    width: 10vh !important;
+    color: #232a34 !important;
+}
+a.envelope:hover {
+    color: #05a081 !important;
 }
 
 /* MOBILE */
@@ -95,9 +94,11 @@ a.envelope {
         background-color:#232a34 !important;
         width: 100vw;
         margin: 0px;
-        height: 15vh;
+        height: 12vh;
     }
- 
+    a.logo {
+        margin-top: 1vh;
+    }
     button.mobile{
         background-color:#232a34 !important;
     }
@@ -143,6 +144,7 @@ a.envelope {
         color:  white !important;
         font-size: 1,5em!important;
     }
+    
     nav.navbar {
     background-color:#232a34 !important;
     visibility: visible;
@@ -155,6 +157,6 @@ a.envelope {
     div.bot{
         margin-bottom: 20vh !important;
     }
-    
+
 }
  

@@ -30,9 +30,9 @@ class UserCreationFormWithEmail(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['wallet', 'phone']
+        fields = ['phone']
         widgets = {
-            'wallet': forms.ClearableFileInput(attrs={'class':'form-control-file mt-3'}),
+            #'wallet': forms.ClearableFileInput(attrs={'class':'form-control-file mt-3'}),
             'phone': forms.Textarea(attrs={'class':'form-control mt-3', 'rows':3, 'placeholder':'Biografía'}),
         }
 

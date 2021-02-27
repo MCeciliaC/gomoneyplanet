@@ -1,0 +1,127 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Planes disponibles{% endblock %}
+
+{% block thispage %}
+<style>
+  div.green {
+    background-color: #b0d6be;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  div.brown {
+    background-color: #c4ab91;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  div.red {
+    background-color: #e4c9a3;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  div.blue {
+    background-color: #a3cbe4;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  
+
+</style>
+{% endblock %}
+
+{% block content %} 
+
+<!-- Cliente logueado -->
+    {% if request.user.is_authenticated %}
+
+        <div class="row text-center col-12 mt-3">
+            <div class="container col-11 p-3">
+                <h2>Planes disponibles</h2>            
+            </div>  
+            <div class="container col-2">
+                <h4>Inversión/Tiempo</h4>
+            </div>
+            <div class="container col-3">
+                <h4>3 Meses</h4>
+            </div>
+            <div class="container col-3">
+                <h4>6 Meses</h4>
+            </div>
+            <div class="container col-3">
+                <h4>12 Meses</h4>
+            </div>            
+        </div>
+
+        <div class="row col-12 mb-5">
+            <div class="container green text-center col-2">
+                <h3>€ 50</h3>
+            </div>
+            {% for plan in plans %}
+                {% if plan.invertion == 50 %}
+                <div class="container text-center green float-left col-3">
+                    <h5>
+                        € {{plan.result|floatformat:0}}
+                    </h5>
+                    <h6>
+                        {{plan.percent}}% mensual 
+                    </h6>
+                </div>            
+                {% endif %}
+            {% endfor %}
+
+            <div class="container brown text-center col-2">
+                <h3>€ 100</h3>
+            </div>
+            {% for plan in plans %}
+                {% if plan.invertion == 100 %}
+                <div class="container text-center brown float-left col-3">
+                    <h5>
+                        € {{plan.result|floatformat:0}}
+                    </h5>
+                    <h6>
+                        {{plan.percent}}% mensual 
+                    </h6>
+                </div>             
+                {% endif %}
+            {% endfor %}
+
+            <div class="container red text-center col-2">
+                <h3>€ 300</h3>
+            </div>
+            {% for plan in plans %}
+                {% if plan.invertion == 300 %}
+                    <div class="container text-center red float-left col-3">
+                        <h5>
+                            € {{plan.result|floatformat:0}}
+                        </h5>
+                        <h6>
+                            {{plan.percent}}% mensual 
+                        </h6>
+                    </div>           
+                {% endif %}
+            {% endfor %}
+
+            <div class="container blue text-center col-2">
+                <h3>€ 500</h3>
+            </div>
+            {% for plan in plans %}
+                {% if plan.invertion == 500 %}
+                <div class="container text-center blue float-left col-3">
+                    <h5>
+                        € {{plan.result|floatformat:0}}
+                    </h5>
+                    <h6>
+                        {{plan.percent}}% mensual 
+                    </h6>
+                </div>           
+                {% endif %}
+            {% endfor %}
+
+        </div>          
+       
+    {% endif %}
+{% endblock %}

@@ -4,7 +4,11 @@
 
 {% block thispage %} 
 <style>
-a {
+  img.welcome {
+    background-color: gray !important;
+    min-height: 40vh;
+  }
+  a {
     color:white;
     text-decoration: none;
   }
@@ -19,8 +23,10 @@ a {
     background-color:#dfe0e1 !important;
     border-radius: 10px;
   }
-
-
+  iframe {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
 
 @media (min-width:768px){
   /*
@@ -41,8 +47,8 @@ a {
       <h3 class="mt-5 ml-5 mr-5">¡Bienvenido otra vez {{request.user.first_name}}! ¿Qué deseas hacer?</h3> <br>
     <button class="home col-xs-8 col-md-6"><a href="{% url 'admin:registration_profile_add' %}">Agregar nuevo Cliente</a></button><br>
     <button class="home col-xs-8 col-md-6"><a href="{% url 'admin:registration_seller_add' %}">Agregar nuevo Vendedor</a></button> <br>
-    <button class="home col-xs-8 col-md-6"><a href="{% url 'admin:core_question_add' %}">Agregar nueva Pregunta</a></button> <br>
-    <button class="home col-xs-8 col-md-6 mb-5"><a href="{% url 'admin:core_text_add' %}">Editar textos del Home</a></button> <br>
+    <button class="home col-xs-8 col-md-6 mb-5"><a href="admin/core/plan">Ver planes</a></button> <br>
+
   </div>
   {% else %}
 <!-- Usuario autenticado -->
@@ -71,31 +77,39 @@ a {
 
 <!-- Usuarios no autenticados -->
 {% else %}
+<div class="container col-12">
   <div class="container col-12 text-center mt-5 mb-3">
     <h3>Servicio de Inversiones</h3>
     <p>Abierto 24hs</p>
   </div>
-<!-- 3 Publicidades principales -->
-  {% for pub in publish %}
-   
+  <img src="" alt="" class="welcome">
+  <div class="container  text-center">
+    <button class="home col-xs-8 col-md-6 mb-5"><a href="{%url 'login' %}">Ya estoy registrado</a></button> <br>
+  </div>
+</div>
+
+<!-- 3 Publicidades activas -->
+
+
+{% for pub in publish %}
+  {% if pub.active == True %}
     <div class="row col-12 mb-5">
       <div class="container text-center col-8">
         <h2 class="title text-center col-12">
           {{pub.title}}
         </h2>
+          {% if pub.video %}      
+            <iframe width="560" height="315" src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          {% endif %}            
         <h5>
           {{pub.text|safe|linebreaks}}
-
         </h5>
-   
       </div>
     </div> 
+  {% endif %}
+{% endfor %}
 
-  {% endfor %}
-
-    <div class="container  text-center">
-      <button class="home col-xs-8 col-md-6 mb-5"><a href="{%url 'login' %}">Ya estoy registrado</a></button> <br>
-    </div>
+    
 {% endif %}
 
 {% endblock %} 

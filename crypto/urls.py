@@ -26,6 +26,7 @@ urlpatterns = [
     path('panel/<user_id>/', views.panel, name="panel"), #<> para campo dinamico
     path('seller/<user_id>/', views.seller, name="seller"),
     path('about/', QuestionListView.as_view(), name='about'),
+    path('plan/', views.plan, name='plan'),
     path('registrar_usuario/', login_required(RegistrarUsuario.as_view()), name='registrar_usuario'),
     path('admin/', admin.site.urls),
     # Paths de Auth
