@@ -16,16 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
-from core.views import HomePageView, QuestionListView #, ClientDetailView
+from core.views import HomePageView, QuestionListView, Error404View, Error505View, RegistrarUsuario  
 from django.conf.urls import handler404, handler500
-from core.views import Error404View, Error505View
+from django.contrib.auth.decorators import login_required
+
 
 urlpatterns = [
     path('', HomePageView.as_view(), name="home"), 
     path('panel/<user_id>/', views.panel, name="panel"), #<> para campo dinamico
     path('seller/<user_id>/', views.seller, name="seller"),
     path('about/', QuestionListView.as_view(), name='about'),
-
+    path('registrar_usuario/', login_required(RegistrarUsuario.as_view()), name='registrar_usuario'),
     path('admin/', admin.site.urls),
     # Paths de Auth
     path('accounts/', include('django.contrib.auth.urls')),
