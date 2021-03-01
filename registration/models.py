@@ -5,6 +5,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from ckeditor.fields import RichTextField
 from django.utils import timezone
+from datetime import date, timedelta
+
 
 # Delete wallet
 def custom_upload_to(instance, filename):
@@ -40,14 +42,11 @@ class Seller(models.Model):
 
 
 class Profile(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    days= models.IntegerField(verbose_name= "Días contrato", null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)    
     start = models.DateField(verbose_name= "Fecha de inicio", default=None, null=True, blank=True)
-    money = models.IntegerField(verbose_name= "Dinero invertido", default=None, null=True, blank=True)
-    gain= models.IntegerField(verbose_name= "Ganancia acumulada", default=None, null=True, blank=True)
-    currencys= models.ForeignKey(Currency, verbose_name= "Moneda elegida ", on_delete=models.CASCADE, null=True, blank=True)
-    #plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.CASCADE, null=True, blank=True)
+    gain= models.IntegerField(verbose_name= "Ganancia", default=None, null=True, blank=True)
+    currency= models.ForeignKey(Currency, on_delete=models.PROTECT, verbose_name= "Moneda principal", null=True, blank=True)
+    plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.PROTECT, null=True, blank=True)
     phone= models.IntegerField(verbose_name= "Teléfono", default=None, null=True, blank=True)
     seller= models.ForeignKey(Seller, verbose_name= "Vendedor asignado", on_delete=models.CASCADE, null=True, blank=True)
     client_active = models.BooleanField(default=False, verbose_name= "Cliente activo")
@@ -55,7 +54,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name= "Perfil Cliente"
         verbose_name_plural="Perfiles de Clientes"
-        ordering = ['money']
+        ordering = ['seller']
        
     def __str__(self):
         person= self.user.first_name + ' ' + self.user.last_name
@@ -69,8 +68,24 @@ class Profile(models.Model):
 
     def email(self):
         return self.user.email
+
+    def meses(self):
+        return self.plan.time
     
+    def inversion(self):
+        return self.plan.invertion
 
+    def finaliza(self):
+        f1= self.start
+        plan= self.plan.time
 
-
+        if plan == 3:
+            tres= f1 + timedelta(365/4)
+            return tres
+        elif plan == 6:
+            seis= f1 + timedelta(365/2)
+            return seis
+        else:
+            doce= f1 + timedelta(365)
+            return doce
 

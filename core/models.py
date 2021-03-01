@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 
+
 # Models Question, Month, Plan, Currency, Text, Social
 class Question(models.Model):
     id= models.SmallIntegerField(primary_key=True, verbose_name= "Id")
@@ -16,8 +17,6 @@ class Question(models.Model):
     
     def __str__(self):
         return self.title
-
-
 
 class Plan(models.Model):
     id= models.AutoField(primary_key=True, verbose_name= "Id")
@@ -57,7 +56,6 @@ class Currency(models.Model):
     def __str__(self):
         return self.name
 
-
 class Text(models.Model):
     id= models.AutoField(primary_key=True, verbose_name= "Id")
     title= models.CharField(max_length=1000, verbose_name= "Título", null=True, blank=True)
@@ -66,7 +64,6 @@ class Text(models.Model):
     video= models.URLField(verbose_name= "Link a youtube",null=True, blank=True)
     active= models.BooleanField(default=False, verbose_name= "Mostrar")
 
-
     class Meta:
         verbose_name= "Publicidad"
         verbose_name_plural= "Publicidades"
@@ -74,7 +71,6 @@ class Text(models.Model):
     
     def __str__(self):
         return self.title
-
 
 class Social(models.Model):
     id= models.AutoField(primary_key=True, verbose_name= "Id")

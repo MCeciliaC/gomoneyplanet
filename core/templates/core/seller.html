@@ -2,195 +2,174 @@
 
 {% block title %}Clientes{% endblock %}
 
-{% block thispage %}
+{% block thispage %} 
 <style>
-div.line:hover {
-    background-color: lightblue;
-}
-p.edit{
-    float: left !important;
-    width: 4%;
-    margin-right: 2%;
-}
-p.client {
-    float: left !important;
-    width: 12%;
-    margin-right: 1%;
-    text-align: left;
-}
-p.lg {
-    width: 11%!important;
-}
-p.last {
-    text-align: right;
-}
-a {
-  color: white;
-}
-@media (min-width:768px){
-  footer {
-      position: absolute !important;
-      bottom: 0px !important;
+  @media (min-width: 200px) and (max-width:768px){ 
+    div.desktop {
+      display: none;
+    }
+    div.mobile {
+      display: block;
+    }
+   }
+  @media (min-width:768px){
+    div.mobile {
+      display: none;
+    }
+    div.desktop {
+      display: block;
+    }
   }
-}
+  
 </style>
 
-<script>
-  
-function abrir_modal_edicion(url) {
-    $('#edicion').load(url, function() {
-        $(this).modal('show');
-    });    
-}
-
-function abrir_modal_creacion(url) {
-    $('#creacion').load(url, function() {
-        $(this).modal('show');
-    });    
-}
-
-function cerrar_modal_edicion() {
-    $('#edicion').modal('hide');    
-}
-
-function cerrar_modal_creacion() {
-    $('#creacion').modal('hide');    
-}
-
-function registrar() {
-    $.ajax({
-        data: $('#form_creacion').serialize(),
-        url: $('#form_creacion').attr('action'),
-        type: $('#form_creacion').attr('method'),
-        success: function(response) {
-
-        },
-        error: function(error) {
-            
-        }
-    });
-}
-</script>
 {% endblock %}
-
 {% block content %} 
 
-<!-- Vendedor activo -->
-{% if request.user == seller.user %}
-  {% if seller.seller_active == True %}
 
-    <div class="container text-center bg bot top col-xs-11 col-md-11 mt-5">
-        <div class="row">
-        <h3 class="float-left mb-5 ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}:</h3>
-            <br>    
- 
-            <div class="container float-left col-12 mb-1">
-                <p class="edit"></p>
-                <p class="client lg">Usuario</p>
-                <p class="client">Inicio</p>
-                <p class="client">Contrato</p>
-                <p class="client">Invertido</p>
-                <p class="client">Ganancia</p>
-                <p class="client">Monedas</p>
-                <p class="">Telefono</p>
-            </div> 
-            <br>
-            {% for client in seller.profile_set.all %}
-            <div class="container col-12 mb-3 line">
+<!-- Mobile -->
 
-                {% if client.client_active == True%}     
-                    <p class="edit" onClick="editClient({{client.id}})" data-toggle="modal" data-target="#myModal")"><i class="fas fa-user-edit"></i></p>                
-                    {% if client %}                   
-                    <p class="client lg">{{client.user.first_name}} {{client.user.last_name}}</p>
-                    {% endif %}
+  <div class="mobile container">
+    <div class="container-col-12 mt-3">
+      <h3 class="float-left ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}</h3>
+    </div> 
 
-                    {% if client.start %}
-                    <p class="client">{{client.start|date:"SHORT_DATE_FORMAT"}}</p>
-                    {% else %}
-                    <p class="client">-</p>
-                    {% endif %}
-
-                    {% if client.days %}
-                    <p class="client">{{client.days}} días</p>
-                    {% else %}
-                    <p class="client">-</p>
-                    {% endif %}
-
-                    {% if client.money %}
-                    <p class="client">€ {{client.money}}</p>
-                    {% else %}
-                    <p class="client">-</p>
-                    {% endif %}
-
-                    {% if client.gain %}
-                    <p class="client">€ {{client.gain}}</p>
-                    {% else %}
-                    <p class="client">-</p>
-                    {% endif %}
-
-                    {% if client.currencys %}
-                    <p class="client">{{client.currencys}}</p>
-                    {% else %}
-                    <p class="client">-</p>
-                    {% endif %}
-                  
-                    {% if client.phone %}
-                    <p class="">{{client.phone}}</p>
-                    {% else %}
-                    <p class="">-</p>
-                    {% endif %}
-
-                {% endif %}
-            </div>        
-            {% endfor %}
-
-            <div class="container  text-center">
-              <button type="button" class="home col-xs-8 col-md-6 mb-5" onclick="abrir_modal_creacion('{% url 'registrar_usuario' %}');">Añadir nuevo cliente</button> <br>
+    {% for client in clients %}
+        {% if client.seller.user == request.user %}
+          {% if client.client_active == True%} 
+          <div class="container bg float-left col-12 p-5 mb-5">
+            <div class="row ">
+              <div class="container col-1 float-left">
+                <a href="{% url 'update' client.id %}" class="edit">
+                  <i class="fas fa-user-edit"></i>            
+                </a> 
+              </div>
+              <div class="container col-1 float-left">
+                <a href="{% url 'delete' client.id %}" class="edit">
+                  <i class="fas fa-user-minus"></i>                          
+                </a>         
+              </div>
+            <div class="container col-9">
+              <h5>
+                {{client.user.first_name}} {{client.user.last_name}}
+              </h5>
             </div>
-        </div>
-    </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="creacion" role="dialog">
-
-</div>
-
-<div class="modal fade" id="edicion" role="dialog">
-    
-</div>
-
-  <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel">Update User</h4>
-        </div>
-        <form id="updateUser" action="">
-          <div class="modal-body">
-            <input class="form-control" id="form-id" type="hidden" name="formId"/>
-            <label for="gain">Gain</label>
-            <input class="form-control" id="form-gain" type="text" name="formGain"/>
-            
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" >Save changes</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </form>
+            </div>
+            <p class="col-12"> Inicio: {{client.start|date:"SHORT_DATE_FORMAT"}}</p>
+            <p class="col-12">Vencimiento: {{client.finaliza|date:"SHORT_DATE_FORMAT"}}</p>
+            <p class="col-12">Plan: € {{client.inversion}} por {{client.meses}} meses.</p>
+            {% if client.gain %}
+            <p class="col-12">Ganancia: € {{client.gain}}</p>
+            {% else %}
+            <p class="col-12">Ganancia: no registra</p>
+            {% endif %}
+            {% if client.currency %}
+            <p class="col-12">Moneda: {{client.currency}}</p>
+            {% endif %}
+            {% if client.phone %}
+            <p class="col-12">Teléfono: {{client.phone}}</p>
+            {% endif %}                    
+            <p class="col-12">Email: {{client.user.email}}</p>
+          </div> 
+          {% endif %} 
+        {% endif %} 
+        {% endfor %}
       </div>
-    </div>
-  </div>
 
-  
-  <!-- Vendedor pendiente de activacion -->
-  {% else %}
-  <div class="container text-center top bot bg col-sm-11 col-md-6 p-5">
-    <h4>Su solicitud se encuentra en proceso de admisión, en breve lo activaremos. <br><br><br>Cualquier consulta escribir a gomoneyplanet@gmail.com</h4>
-    <button class="home col-6 mt-5"><a class="visible" href="{% url 'logout' %}">Logout</a></button> <br>
-    </div>     
-  {% endif %}
-{% endif %}
+
+<!-- Desktop -->
+<div class="container text-center desktop bg bot top col-xs-11 col-md-11 mt-5 p-5">
+  {% if 'ok' in request.GET %}
+  <p style="color:green;">
+    El cliente se ha actualizado correctamente.
+  </p>
+  {% elif 'created' in request.GET %}
+  <p style="color:green;">
+    Se ha añadido un nuevo cliente.
+  </p>
+  {% elif 'deleted' in request.GET %}
+  <p style="color:green;">
+    El cliente se ha eliminado correctamente.
+  </p>
+  {% endif %} 
+  <h3 class="float-left mb-10 ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}:</h3>
+  <div class="container float-left col-12 mt-2">   
+      <p class="edit"></p>
+      <p class="edit"></p>
+      <p class="clientmd">Cliente</p>
+      <p class="clientmd">Vencimiento</p>
+      <p class="client">Inversión</p>
+      <p class="client">Ganancia</p>
+      <p class="client">Monedas</p>
+      <p class="client">Telefono</p>
+      <p class="clientmd">Email</p>
+  </div> 
+  {% for client in clients %}
+      {% if client.seller.user == request.user %}
+      <div class="row line">
+          {% if client.client_active == True%}             
+            <a href="{% url 'update' client.id %}" class="edit">
+              <i class="fas fa-user-edit"></i>            
+            </a> 
+            <a href="{% url 'delete' client.id %}" class="edit">
+              <i class="fas fa-user-minus"></i>                          
+            </a> 
+              {% if client %}                   
+              <p class="clientmd"> {{client.user.first_name}} {{client.user.last_name}}</p>
+              {% endif %}
+      
+              {% if client.start %}
+              <p class="clientmd">{{client.finaliza|date:"SHORT_DATE_FORMAT"}}</p>
+              {% else %}
+              <p class="clientmd">-</p>
+              {% endif %}
+            
+              {% if client.inversion %}
+              <p class="client">€ {{client.inversion}} x {{client.meses}} meses</p>
+              {% else %}
+              <p class="client">-</p>
+              {% endif %}
+      
+              {% if client.gain %}
+              <p class="client">€ {{client.gain}}</p>
+              {% else %}
+              <p class="client pl-2"></p>
+              {% endif %}
+      
+              {% if client.currency %}
+              <p class="client">{{client.currency}}</p>
+              {% else %}
+              <p class="client"></p>
+              {% endif %}
+            
+              {% if client.phone %}
+              <p class="client">{{client.phone}}</p>
+              {% else %}
+              <p class="client"></p>
+              {% endif %}  
+              <p class="clientmd">{{client.user.email}}</p>
+          </div>
+        {% endif %} 
+        {% endif %} 
+  {% endfor %}
+
+  <div class="container col-12 text-center">
+    <button type="button" class="home col-xs-8 col-md-4 mb-5">
+      <a href="{% url 'create' %}" class="">
+        <i class="fas fa-user-plus"></i> Añadir nuevo cliente
+      </a>
+    </button> 
+  </div>
+</div>
+
 {% endblock %}
+
+
+
+
+
+
+
+
+

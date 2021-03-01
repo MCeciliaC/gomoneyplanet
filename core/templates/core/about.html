@@ -2,27 +2,8 @@
 
 {% block title %}About Us{% endblock %}
 
-{% block thispage %} 
-<style>
-
-
-  div.title {
-    background-color: #dfe0e1 !important;
-    border-radius: 10px;
-  }
-  div.title:hover {
-    background-color: #05a081!important;
-    color: white;
-  }
-
-
-</style>
-
-{% endblock %}
-
 {% block content %} 
-<div class=" container top bot col-12 col-md-8">
-  
+<div class=" container top bot col-12 col-md-8">  
   {% for question in questions %}
   <div class="faq container col-12 mb-3">
     <div class="container title col-12">

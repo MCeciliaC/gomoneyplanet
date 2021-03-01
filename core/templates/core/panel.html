@@ -2,86 +2,15 @@
 
 {% block title %}Estado de mi inversión{% endblock %}
 
-{% block thispage %}
-<style>
-div.subnav {
-    background-color:#6E6E70 !important;
-    height: 10vh;
-    width: 100vw !important;
-    color: white;
-    margin-top: 0% !important;
-}
-a.wallet, h6 {
-    color: red;
-}
-div.master  {
-    overflow: hidden;
-    width: 80vw;
-    margin-left: 10vw;
-    margin-top: 8vh;
-}
-img.currency {
-    height: 5vh;
-    margin-left: 2.5vh;
-    margin-top: 2.5vh;
-    margin-right: 0%;
-}
-div.currency {
-    border-right: solid 1px;
-}
-div.panel-title {
-    background-color: #dfe0e1 !important;
-    border-radius: 10px;
-    margin-bottom: 4vh;
-    padding-right: 5vh;   
-} 
-div.panel-top {
-    background-color: #dfe0e1 !important;
-    border-radius: 10px;
-    min-height: 15vh;
-    margin-bottom: 4vh;
-    padding: 5vh;
-} 
-div.panel-bot {
-    background-color: #dfe0e1 !important;
-    border-radius: 10px;
-    min-height: 15vh;
-    margin-bottom: 5vh;
-    padding-right: 5vh;
-    padding-left: 4vh;
-    padding-top: 3vh;
-} 
-button.pendiente {
-    height: 5vh;
-    border-radius: 20px;
-    border-style: dashed;
-    margin-top:2vh;
-}
-p.baja {
-    color: #FF3131;
-}
-p.alza {
-    color: #94D191;
-}
-a {
-    color:white;
-}
-    @media (min-width:768px){
-a.home {
-    color:white;
-}
-}
-</style>
-{% endblock %}
 {% block content %} 
 
 <!-- Cliente activo -->
+
 {% if request.user == client.user %}
     {% if client.client_active == True%}
 
     <!-- SubNav-->
-    <div class="row subnav zero">
-        
+    <div class="row subnav zero">        
         <marquee behavior="scroll" direction="">
         </marquee>   
         {% for obj in data %}  
@@ -117,38 +46,36 @@ a.home {
                 {% endif %}
             {% endfor %}                            
     </div>
-
-    <div class="row master">
-        
+    <div class="row master">        
         <div class="row col-12">
             <div class="container panel-title col-12">
-                <h4 class="float-left col-7">Cliente: {{request.user.first_name}} {{request.user.last_name}}</h4>
-                <p class="float-right">Vendedor asignado: {{client.seller}} <br>
+                <h4 class="float-left col-7 mt-2">Cliente: {{request.user.first_name}} {{request.user.last_name}}</h4>
+                <p class="float-right mt-2">Vendedor asignado: {{client.seller}} <br>
                     Fecha de inicio: {{client.start|date:"SHORT_DATE_FORMAT"}}
                 </p>
             </div>
-            <div class="container text-center panel-bot col-5">                
-                {% if client.money %}
-                    <h4>Inversión inicial:</h4> 
-                        <h2>
-                            € {{client.money}}
-                        </h2>                    
+            <div class="container text-center panel-bot col-5"> 
+                {% if client.plan %}
+                <h4>Inversión inicial:</h4> 
+                <h2>
+                    € {{client.plan.invertion}}
+                </h2>                    
                 {% else %}
-                    <h4>Todavía no ha iniciado ninguna inversión.</h4>
+                <h4>Todavía no ha iniciado ninguna inversión.</h4>
                 {% endif %}                    
             </div>
+            <div class="container col-1"></div>
             <div class="container  text-center panel-bot col-6">
-                <h4>
+                <h4>                    
                     {% if client.start %}
-                    Su inversión finaliza en: {{diferencia}}                               
+                    Su inversión finaliza en:                            
                 </h4>
-                    <h2>
-                        {{days}} días 
-                    </h2>                       
-                    {% endif %}
-            </div>                 
-        </div>
-        
+                <h2>
+                    {{days}} días 
+                </h2>                       
+                {% endif %}
+            </div>                
+        </div>        
         <div class="row col-12">
             <div class="container text-center panel-bot col-6">
                 {% if client.gain %}
@@ -158,35 +85,33 @@ a.home {
                     </h2>
                 {% else %}
                     <h4>
-                        Aún no se han registrado ganancias, las mismas se actualizan semanalmente. 
+                        Aún no registra ganancias.
                     </h4>
+                    <h6>Las mismas se actualizan semanalmente.</h6>
                 {% endif %}
             </div>
+            <div class="container col-1"></div>
             <div class="container text-center panel-bot col-5">                        
-                {% if client.currencys %}
-                <h4>Moneda elegida:</h4>
+                {% if client.currency %}
+                    <h4>Moneda elegida:</h4>
                     <h2>
-                        {{client.currencys|capfirst}}
-                    </h2> 
-                
+                        {{client.currency|capfirst}}
+                    </h2>                 
                 {% else %}
-                <h4>
-                    Sin especificar <br>
-                    moneda elegida. 
-                </h4>
+                    <h4>
+                        Sin especificar <br>
+                        moneda elegida. 
+                    </h4>
                 {% endif %}
             </div>                 
-        </div>
-  
-    </div>
-    
+        </div>  
+    </div>    
     {% else %}
         <div class="container text-center top bot bg col-sm-11 col-md-6 p-5">
         <h4>Su solicitud se encuentra en proceso de admisión, en breve lo activaremos. <br><br><br>Cualquier consulta escribir a gomoneyplanet@gmail.com</h4>
         <button class="home col-6 mt-5"><a class="visible" href="{% url 'logout' %}">Logout</a></button> <br>
         </div>  
     {% endif %}
-
 {% endif %}
 
 <!-- Api all cryptos -->

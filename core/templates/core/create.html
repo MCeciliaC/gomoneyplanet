@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Registar Cliente{% endblock %}
+
+{% block content %} 
+
+<div class="container bg top bot col-sm-12 col-md-6 p-5">
+    <form id="form_creacion" action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>        
+        <br>
+        <div class="col-12 text-center">
+            <button class="home col-4 mr-2" type="button"><a href="{% url 'seller' %}"> Cancelar</a></button>
+            <button class="home col-4 ml-2" value="Crear" type="submit"><a href="{% url 'seller' %}"> Crear</a></button>
+        </div>                  
+    </form>
+</div>
+
+{% endblock %}
+

@@ -3,10 +3,11 @@
     box-sizing: border-box;
     font-family: 'Exo', sans-serif;
 }
-body {
-    /*background-image: url("../img/bg2.jpg");*/
+body {/*
+    background-image: url("../img/bg1.jpg");*/
     background-color: white !important;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     height: 100vh;
     width: 100vw;
     margin: 0%;
@@ -23,7 +24,6 @@ a.logo {
     font-size: 1.1em;
     border-radius: 10px;
     font-weight: lighter;
-
 }
 
 /* Nav mobile*/
@@ -39,7 +39,7 @@ a.nav-link{
 div.bg {
     background-color: #dfe0e1 !important;
     border-radius: 10px;
-    min-height: 45vh;
+    min-height: 30vh;
 }
 input.btn {
     background-color: #05a081 !important;
@@ -84,6 +84,201 @@ a.envelope:hover {
     color: #05a081 !important;
 }
 
+/* Plan */
+div.green {
+    background-color: #b0d6be;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  div.brown {
+    background-color: #c4ab91;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  div.red {
+    background-color: #e4c9a3;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  div.blue {
+    background-color: #a3cbe4;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+  }
+  /* End Plan */
+
+  /* Panel */
+div.subnav {
+    background-color:#6E6E70 !important;
+    height: 10vh;
+    width: 100vw !important;
+    color: white;
+    margin-top: 0% !important;
+}
+
+div.master  {
+    overflow: hidden;
+    width: 80vw;
+    margin-left: 10vw;
+    margin-top: 8vh;
+}
+img.currency {
+    height: 5vh;
+    margin-left: 2.5vh;
+    margin-top: 2.5vh;
+    margin-right: 0%;
+}
+div.currency {
+    border-right: solid 1px;
+}
+div.panel-title {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+    margin-bottom: 4vh;
+    padding-right: 5vh;   
+} 
+div.panel-top {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+    min-height: 15vh;
+    margin-bottom: 4vh;
+    padding: 5vh;
+} 
+div.panel-bot {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+    min-height: 15vh;
+    margin-bottom: 5vh;
+    padding-right: 5vh;
+    padding-left: 4vh;
+    padding-top: 3vh;
+} 
+button.pendiente {
+    height: 5vh;
+    border-radius: 20px;
+    border-style: dashed;
+    margin-top:2vh;
+}
+p.baja {
+    color: #FF3131;
+}
+p.alza {
+    color: #94D191;
+}
+p.float-right {
+    text-align: right;
+}
+a {
+    color:white;
+}
+    @media (min-width:768px){
+a.home {
+    color:white;
+}
+}
+/* End Panel */
+  /* Home */
+  div.button {
+    transform: translate( 0, -15vh);
+  }
+  img.welcome {
+    background-color: gray !important;
+    width: 100vw;
+    height: auto;
+    margin-top: 0%;   
+  }
+
+  a {
+    color:white;
+    text-decoration: none;
+  }
+  a.normal {
+    color: royalblue;
+  }
+  a.normal:hover {
+    color: yellowgreen;
+  }
+  h2.title {/*
+    font-family: 'Alfa Slab One' !important;   */
+    background-color:#dfe0e1 !important;
+    font-size: ;
+    border-radius: 10px;
+  }
+
+  iframe {
+    width: 60vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+  .white {
+    color: white !important;
+    background-color:#232a34;
+    border-radius: 10px;
+}
+  @media (min-width:768px){
+  /*
+  footer {
+      position: absolute !important;
+      bottom: 0px !important;
+  }*/
+}
+/* End Home */
+
+  /* Seller */
+
+div.line:hover {
+    background-color: lightblue;
+    border-radius: 10px;
+}
+.edit{
+    color: #232a34 !important; 
+    float: left !important;
+    width: 2%;
+    margin-right: 1%;
+}
+p.clientlg {
+    float: left !important;
+    text-align: left;
+    width: 19%;
+    margin-right: 0%;
+}
+p.client {
+    float: left !important;
+    text-align: left;
+    width: 12%;
+    margin-right: 0%;
+}
+p.clientmd {
+    float: left !important;
+    text-align: left;
+    width: 14%!important;
+    margin-left: 1%;
+}
+p.last {
+    text-align: right;
+}
+a {
+  color: white;
+}
+/* End Seller */
+/* About */
+
+div.title {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+  }
+  div.title:hover {
+    background-color: #05a081!important;
+    color: white;
+  }
+
+/* End About */
+
+
 /* MOBILE */
 @media (min-width: 200px) and (max-width:768px){ 
     body {        
@@ -95,9 +290,6 @@ a.envelope:hover {
         width: 100vw;
         margin: 0px;
         height: 12vh;
-    }
-    a.logo {
-        margin-top: 1vh;
     }
     button.mobile{
         background-color:#232a34 !important;
@@ -113,8 +305,7 @@ a.envelope:hover {
         height: 20vh;
         color: white;
     }
-    a.logo {
-        
+    a.logo {        
         margin-top: 2%;
     }
     /* */
@@ -144,7 +335,18 @@ a.envelope:hover {
         color:  white !important;
         font-size: 1,5em!important;
     }
-    
+    a.log {
+        border-radius: 10px;
+        border: 1px white;
+        border-style: dashed;
+        min-width: 10vh;
+        text-align: center;
+    }
+    a.log:hover {
+        border: 1px #232a34;
+        background-color: white;
+        color: #232a34 !important;
+    }
     nav.navbar {
     background-color:#232a34 !important;
     visibility: visible;

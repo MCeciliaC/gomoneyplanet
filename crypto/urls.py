@@ -16,18 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
-from core.views import HomePageView, QuestionListView, Error404View, Error505View, RegistrarUsuario  
+from core.views import HomePageView, QuestionListView, PlanView, SellerView, Error404View, Error505View, ClientUpdate, ClientCreate, ClientDelete
 from django.conf.urls import handler404, handler500
 from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
     path('', HomePageView.as_view(), name="home"), 
-    path('panel/<user_id>/', views.panel, name="panel"), #<> para campo dinamico
-    path('seller/<user_id>/', views.seller, name="seller"),
+    path('panel/<user_id>/', login_required(views.panel), name="panel"), #<> para campo dinamico
     path('about/', QuestionListView.as_view(), name='about'),
-    path('plan/', views.plan, name='plan'),
-    path('registrar_usuario/', login_required(RegistrarUsuario.as_view()), name='registrar_usuario'),
+    path('plan/', login_required(PlanView.as_view()), name='plan'),
+    path('seller/',login_required( SellerView.as_view()), name='seller'),
+    path('create/', ClientCreate.as_view(), name='create'),
+    path('update/<int:pk>/', ClientUpdate.as_view(), name='update'),
+    path('delete/<int:pk>/', ClientDelete.as_view(), name='delete'),
     path('admin/', admin.site.urls),
     # Paths de Auth
     path('accounts/', include('django.contrib.auth.urls')),

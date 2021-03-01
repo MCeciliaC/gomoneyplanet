@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Borrar página{% endblock %}
+
+{% block content %}
+
+  <div class="container text-center bg top bot col-sm-12 col-md-6 p-5">
+        <div>
+          <form action="" method="post">{% csrf_token %}
+            <p>¿Estás seguro de que quieres borrar a <b>"{{ object }}"</b>?</p>
+            <div class="text-center col-12"></div>
+              <input type="submit" class="btn home container text-center col-6 btn-block" value="Sí, borrar cliente" />
+          </form>
+        </div>
+  </div>
+
+{% endblock %}
