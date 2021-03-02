@@ -3,8 +3,8 @@
     box-sizing: border-box;
     font-family: 'Exo', sans-serif;
 }
-body {/*
-    background-image: url("../img/bg1.jpg");*/
+body {
+    background-image: url("../img/bgg.jpg");   
     background-color: white !important;
     background-size: contain;
     background-repeat: no-repeat;
@@ -13,6 +13,8 @@ body {/*
     margin: 0%;
     padding: 0%;
 }
+
+/* Navbar */
 nav {
     background-color:#232a34 !important;
     width: 100vw;
@@ -25,26 +27,17 @@ a.logo {
     border-radius: 10px;
     font-weight: lighter;
 }
-
-/* Nav mobile*/
-button.dropdown-toggle {
-    color:  white !important;
-    float: right;
-    width: 7vw;
-}
-a.nav-link{
-    color:  #232a34 !important;
-    font-size: 1,6em!important;
+/* Divs */
+div.dad {
+    min-height: 85vh;
+    margin: 0% !important;
+    padding: 0% !important;    /*
+    background-color: #FF3131!important;*/
 }
 div.bg {
     background-color: #dfe0e1 !important;
     border-radius: 10px;
     min-height: 30vh;
-}
-input.btn {
-    background-color: #05a081 !important;
-    color: white !important;
-    border-color: #232a34
 }
 div {
     padding: 1vh;
@@ -53,27 +46,60 @@ div.zero {
     padding: 0px;
     margin: 0px;
 }
-button.home {
-    background-color: #05a081;
-    height: 5vh;
-    border-radius: 20px;
-    margin-top:2vh;
-}
-input.home {
-    background-color:#05a081;
-    border-radius: 20px;
-}
 div.top {
     margin-top: 10vh;
 }
 div.bot{
     margin-bottom: 15 !important;
 }
+div.title {
+    background-color: #dfe0e1 !important;
+    border-radius: 10px;
+  }
+  div.title:hover {
+    background-color: #05a081!important;
+    color: white;
+  }
+
+
+/* Buttons and links */
+input.btn {
+    background-color: #05a081 !important;
+    color: white !important;
+    border-color: #232a34
+}
+.home {
+    background-color: #05a081;
+    height: 5vh;
+    border-radius: 20px;
+    margin-top:2vh;
+}
+a.home {
+    color:white;
+}
+a {
+    color:white;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a.normal {
+    color: royalblue;
+}
+a.normal:hover {
+    color: yellowgreen;
+}
+.white {
+    color: white !important;
+    background-color:#232a34;
+    border-radius: 10px;
+}
 /* Footer */
 footer {
     background-color:#dfe0e1 !important;
     width: 100vw;
-    height: 12vh;
+    height: 15vh;
     padding-top: 1vh;
     margin: 0%;
 }
@@ -84,7 +110,7 @@ a.envelope:hover {
     color: #05a081 !important;
 }
 
-/* Plan */
+/* PLAN PAGE */
 div.green {
     background-color: #b0d6be;
     border-radius: 10px;
@@ -111,8 +137,8 @@ div.green {
   }
   /* End Plan */
 
-  /* Panel */
-div.subnav {
+  /* PANEL PAGE */
+div.subnavdesktop {
     background-color:#6E6E70 !important;
     height: 10vh;
     width: 100vw !important;
@@ -175,61 +201,31 @@ p.float-right {
 a {
     color:white;
 }
-    @media (min-width:768px){
-a.home {
-    color:white;
-}
-}
+
 /* End Panel */
-  /* Home */
-  div.button {
+
+/* HOME PAGE */
+div.button {
     transform: translate( 0, -15vh);
-  }
-  img.welcome {
-    background-color: gray !important;
+}
+img.welcome {    
     width: 100vw;
     height: auto;
     margin-top: 0%;   
-  }
-
-  a {
-    color:white;
-    text-decoration: none;
-  }
-  a.normal {
-    color: royalblue;
-  }
-  a.normal:hover {
-    color: yellowgreen;
-  }
-  h2.title {/*
-    font-family: 'Alfa Slab One' !important;   */
+}
+h2.title {
+    /*  font-family: 'Alfa Slab One' !important;   */
     background-color:#dfe0e1 !important;
-    font-size: ;
-    border-radius: 10px;
-  }
-
-  iframe {
-    width: 60vh;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-  }
-  .white {
-    color: white !important;
-    background-color:#232a34;
     border-radius: 10px;
 }
-  @media (min-width:768px){
-  /*
-  footer {
-      position: absolute !important;
-      bottom: 0px !important;
-  }*/
+iframe {
+    height: auto !important; 
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 /* End Home */
 
-  /* Seller */
-
+/* SELLER PAGE */
 div.line:hover {
     background-color: lightblue;
     border-radius: 10px;
@@ -265,50 +261,60 @@ a {
   color: white;
 }
 /* End Seller */
-/* About */
 
-div.title {
-    background-color: #dfe0e1 !important;
-    border-radius: 10px;
-  }
-  div.title:hover {
-    background-color: #05a081!important;
-    color: white;
-  }
 
-/* End About */
 
 
 /* MOBILE */
 @media (min-width: 200px) and (max-width:768px){ 
-    body {        
+    body {  
+        background-image: url("../img/bgg.jpg");     
         background-attachment: fixed;
     }
-    div.navmob {/*
-        background-color:#243040 !important;*/
+    div.desktop {
+        display: none;
+      }
+      div.mobile {
+        display: block;
+      }
+      div.subnavdesktop {
+        display: none;
+    }
+    /* Nav mobile*/
+    nav.navbar {
+        display: none;
+    }
+    div.navmob {
         background-color:#232a34 !important;
         width: 100vw;
         margin: 0px;
         height: 12vh;
     }
+    button.dropdown-toggle {
+        color:  white !important;
+        float: right;
+        width: 7vw;
+    }
+    a.nav-link{
+        color:  #232a34 !important;
+        font-size: 1,6em!important;
+    }
     button.mobile{
         background-color:#232a34 !important;
     }
-    nav.navbar {
-        display: none;
-    }
+    /* End Nav mobile*/
 
     /* Subnav */
     div.subnav {
         background-color:#6E6E70 !important;
         width: 100vw;
-        height: 20vh;
+        height: 30vh;
         color: white;
     }
     a.logo {        
         margin-top: 2%;
     }
-    /* */
+    /* Divs */
     div.top {
         margin-top: 10vh;
     }
@@ -321,16 +327,21 @@ div.title {
         width: 100vw;
         height: 20vh;
         padding-top: 1vh;
-        margin-top: 10vh;
     }    
 }
 
 
 /* DESKTOP */
 @media (min-width:768px){
-    div.navmob {
+    div.mobile {
         display: none;
     }
+    div.desktop {
+        display: block;
+    }
+    div.navmob {
+        display: none;
+    }    
     a.nav-link{
         color:  white !important;
         font-size: 1,5em!important;
@@ -348,17 +359,18 @@ div.title {
         color: #232a34 !important;
     }
     nav.navbar {
-    background-color:#232a34 !important;
-    visibility: visible;
-    height: 10vh;
-    margin: 0% !important;
+        background-color:#232a34 !important;
+        visibility: visible;
+        height: 10vh;
+        margin: 0% !important;
     }
+    /*
     div.top {
         margin-top: 15vh;
     }
     div.bot{
         margin-bottom: 20vh !important;
-    }
+    }**/
 
 }
  

@@ -42,13 +42,13 @@ class Seller(models.Model):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)    
-    start = models.DateField(verbose_name= "Fecha de inicio", default=None, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)    
+    start = models.DateField(verbose_name= "Fecha de inicio", auto_now_add=True)
     gain= models.IntegerField(verbose_name= "Ganancia", default=None, null=True, blank=True)
     currency= models.ForeignKey(Currency, on_delete=models.PROTECT, verbose_name= "Moneda principal", null=True, blank=True)
-    plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.PROTECT, null=True, blank=True)
+    plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.CASCADE)
     phone= models.IntegerField(verbose_name= "Teléfono", default=None, null=True, blank=True)
-    seller= models.ForeignKey(Seller, verbose_name= "Vendedor asignado", on_delete=models.CASCADE, null=True, blank=True)
+    seller= models.ForeignKey(Seller, verbose_name= "Vendedor asignado", on_delete=models.CASCADE)
     client_active = models.BooleanField(default=False, verbose_name= "Cliente activo")
 
     class Meta:

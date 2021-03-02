@@ -5,19 +5,18 @@
 {% block content %} 
 
 <!-- Cliente activo -->
-
 {% if request.user == client.user %}
     {% if client.client_active == True%}
 
     <!-- SubNav-->
-    <div class="row subnav zero">        
+    <div class="row subnavdesktop zero">        
         <marquee behavior="scroll" direction="">
         </marquee>   
-        {% for obj in data %}  
+        {% for obj in data %}          
             {% if obj.market_cap_rank < 5 %}
                 <!-- Ranking 4 monedas -->
-                <div class="row currency zero col-xs-8 col-md-3 float-left">        
-                    <div class="container zero col-3">
+                <div class="row currency zero col-sm-12 col-md-3 float-left">        
+                    <div class="container zero col-sm-1 col-md-3">
                         <img src="{{obj.image}}" class="currency float-left" alt="">
                     </div>
                     <div class="container zero col-5 float-left pt-3">
@@ -46,7 +45,65 @@
                 {% endif %}
             {% endfor %}                            
     </div>
-    <div class="row master">        
+
+    <!-- Mobile -->
+    <div class="row mobile master col-12 mb-5">  
+              
+        <div class="container bg text-center col-11 mb-3 p-3">
+            <h4 class="mt-2">Cliente: <br> {{request.user.first_name}} {{request.user.last_name}}</h4>
+            <p class="mt-2">Vendedor: {{client.seller}} <br>
+                Fecha de inicio: {{client.start|date:"SHORT_DATE_FORMAT"}}
+            </p>            
+        </div> 
+        <div class="container bg text-center col-11 mb-3 p-3">
+            {% if client.plan %}
+            <h5>Inversión inicial:</h5> 
+            <h3>
+                € {{client.plan.invertion}}
+            </h3>                    
+            {% else %}
+            <h6>Todavía no ha iniciado ninguna inversión.</h6>
+            {% endif %}                    
+            <h5>                    
+            {% if client.start %}
+                Días restantes:                            
+            </h5>
+            <h3>
+                {{days}} días 
+            </h3>                      
+            {% endif %}
+        </div> 
+        <div class="container bg text-center col-11 mb-3 p-3">
+            {% if client.gain %}
+            <h5>Ganancia acumulada:</h5>
+                <h3>
+                    € {{client.gain}}
+                </h3>
+            {% else %}
+                <h5>
+                    Aún no registra ganancias.
+                </h5>
+                <h6>Las mismas se actualizan semanalmente.</h6>
+            {% endif %}
+            {% if client.currency %}
+                <h5>Moneda elegida:</h5>
+                <h3>
+                    {{client.currency|capfirst}}
+                </h3>                 
+            {% else %}
+                <h5>
+                    Sin especificar <br>
+                    moneda elegida. 
+                </h5>
+            {% endif %}
+        </div> 
+      
+    </div>                 
+
+
+
+    <!-- Desktop -->
+    <div class="row desktop master">        
         <div class="row col-12">
             <div class="container panel-title col-12">
                 <h4 class="float-left col-7 mt-2">Cliente: {{request.user.first_name}} {{request.user.last_name}}</h4>
@@ -106,22 +163,8 @@
             </div>                 
         </div>  
     </div>    
-    {% else %}
-        <div class="container text-center top bot bg col-sm-11 col-md-6 p-5">
-        <h4>Su solicitud se encuentra en proceso de admisión, en breve lo activaremos. <br><br><br>Cualquier consulta escribir a gomoneyplanet@gmail.com</h4>
-        <button class="home col-6 mt-5"><a class="visible" href="{% url 'logout' %}">Logout</a></button> <br>
-        </div>  
     {% endif %}
-{% endif %}
 
-<!-- Api all cryptos -->
-{% comment %}
-{% for obj in data %}   
-<div class="container bg bot">
-    <img src="{{obj.image}}" class="currency float-left" alt="">
-    {{obj}} 
-</div>
-{% endfor %}
-{% endcomment %}
+{% endif %}
 
 {% endblock %}

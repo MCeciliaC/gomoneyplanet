@@ -27,9 +27,9 @@ urlpatterns = [
     path('about/', QuestionListView.as_view(), name='about'),
     path('plan/', login_required(PlanView.as_view()), name='plan'),
     path('seller/',login_required( SellerView.as_view()), name='seller'),
-    path('create/', ClientCreate.as_view(), name='create'),
-    path('update/<int:pk>/', ClientUpdate.as_view(), name='update'),
-    path('delete/<int:pk>/', ClientDelete.as_view(), name='delete'),
+    path('create/', login_required(ClientCreate.as_view()), name='create'),
+    path('update/<int:pk>/', login_required(ClientUpdate.as_view()), name='update'),
+    path('delete/<int:pk>/', login_required(ClientDelete.as_view()), name='delete'),
     path('admin/', admin.site.urls),
     # Paths de Auth
     path('accounts/', include('django.contrib.auth.urls')),

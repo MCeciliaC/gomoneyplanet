@@ -6,6 +6,7 @@
 
 <!-- Usuario administrador -->
 {% if request.user.is_authenticated %}
+
   {% if request.user.is_staff %}
   <div class="container text-center top bot bg col-11 col-md-8">
       <h3 class="mt-5 ml-5 mr-5">¡Bienvenido otra vez {{request.user.first_name}}! ¿Qué deseas hacer?</h3> <br>
@@ -15,12 +16,14 @@
 
   </div>
   {% else %}
+
 <!-- Usuario autenticado -->
     <div class="container text-center top bot bg col-11 col-md-7">
       <h3 class="m-5">¡Hola {{request.user.first_name}}! Gracias por elegirnos, . <br>¿Qué deseas hacer?</h3> 
       <!-- Botón para panel de vendedores -->
       {% for sel in sellerlog %}
       {% if sel.user == request.user and sel.seller_active == True %}
+      
       <button class="home col-xs-8 col-md-6 mb-5"><a href="{%url 'seller' %}">Ver mis clientes</a></button> <br>
       {% endif %}
       {% endfor %} 
@@ -39,32 +42,35 @@
 
 <!-- Usuarios no autenticados -->
 {% else %}
+<div class="container col-6 text-center mb-5">
+  <h3>Servicio de Inversiones</h3>
+  <p>Abierto 24hs</p>
+</div>
 {% load static %}
-<img src="{% static 'core/img/bg1.jpg' %}" alt="" class="welcome">
-
-<div class="container button text-center">
-  <button class="home col-xs-8 col-md-4 "><a href="{%url 'login' %}">Ya estoy registrado</a></button> <br>
+<div class="mobile">
+  <img src="{% static 'core/img/bg3.jpg' %}" alt="" class="welcome">
+</div>
+<div class="desktop">
+  <img src="{% static 'core/img/bg3.jpg' %}" alt="" class="welcome">
 </div>
 
-  <div class="container col-6 text-center mb-5">
-    <h3>Servicio de Inversiones</h3>
-    <p>Abierto 24hs</p>
-  </div>
-
-<!-- 3 Publicidades activas -->
+<div class="container button text-center">
+  <button class="home col-xs-4 "><a href="{%url 'login' %}">Ya estoy registrado</a></button> <br>
+</div>
 
 
+<!-- Publicidades activas -->
 {% for pub in publish %}
   {% if pub.active == True %}
-    <div class="row col-12 mb-5">
-      <div class="container text-center col-8">
-        <h2 class="title text-center col-12">
+    <div class="row col-12 mb-5 text-center">
+      <div class="container text-center col-12">
+        <h3 class="title text-center col-sm-12 col-md-7">
           {{pub.title}}
-        </h2>
+        </h3>
           {% if pub.video %}      
-            <iframe width="560" height="315" src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="col-sm-11 col-md-8" src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           {% endif %}            
-        <h5>
+        <h5 class="col-sm-11 col-md-8">
           {{pub.text|safe|linebreaks}}
         </h5>
       </div>
