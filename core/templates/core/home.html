@@ -23,7 +23,30 @@
     bottom: 5px;
     right: 7px;
   }
+  body {
+    background-color:rgba(45,46,62,0.9)!important;
+    
+  }
+  body:hover {
+    background-color: #121d23 !important;
+  }
 
+  body {
+    transition-property: background-color;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    transition-delay: 0,5s;
+  }
+ 
+  @media (min-width: 200px) and (max-width:768px){ 
+    .word {  
+    font-size: 2.4em !important;
+    height: 3em !important;
+  }
+  .word:before {
+    display:none;
+  }
+  }
   </style>
 
 {% endblock %}
@@ -84,18 +107,20 @@
 <!-- Unauthenticated users -->
 {% else %}
   <div class="container zero top col-12 text-center mb-5">
-    <div class="desktop">
+    <div>
       <span class="word mb-3" id="word">
       </span> 
+    </div> 
+    <div class="desktop">
+      <p>Abierto 24hs</p> <br>
     </div>
-    <div class="mobile">
-      <h2 class="mt-5">Servicio<br>de Inversiones</h4> <br>
+    <div class="mobile mt-5 mb-5">
+      <p>Abierto 24hs</p> <br>
     </div>
-    <p>Abierto 24hs</p>
-  </div><br>
+  </div>
   {% load static %}
   <div class="zero text-center mt-5">
-    <img class="col-sm-12 col-md-9" src="{% static 'core/img/home.png' %}" alt="">
+    <img class="col-sm-12 centerimg col-md-9" src="{% static 'core/img/home.png' %}" alt="">
   </div> 
 
   <!-- Publicidades activas -->
@@ -150,7 +175,7 @@ setInterval(function(){
   if( counter == words.length) {
     counter = 0;
   }
-}, 150);
+}, 100);
 
 /*
 setTimeout( function() {

@@ -9,6 +9,7 @@ body {
     margin: 0%;
     padding: 0%;
 }
+
 p, h1, h2, h3, h4, h5 {
     color: #f5f0f6;
 }
@@ -143,8 +144,8 @@ div.subnavdesktop {
 }
 div.master  {
     overflow: hidden;
-    width: 80vw;
-    margin-left: 10vw;
+    width: 70vw;
+    margin-left: 15vw;
 }
 img.currency {
     height: 5vh;
@@ -172,10 +173,10 @@ div.panel-bot {
     padding-left: 4vh;
     padding-top: 3vh;
     color: white;
-} 
-div.panel-bot:hover {
     background-color: rgba(45,46,62,0.9)!important;
 } 
+
+
 div.min {
     min-height: 50vh;
 }
@@ -255,7 +256,9 @@ a {
         color:#f6f1f7 !important;
         font-family: 'Alfa Slab One', cursive;
     }
-
+    div.green {
+        margin-left: 4vh;
+      }
     button.dropdown-toggle {
         color:  white !important;
         float: right;
@@ -324,9 +327,8 @@ a {
         text-align: center;
     }
     a.log:hover {
-        border: 1px #232a34;
-        background-color: #d8cd9a;
-        color: #232a34 !important;
+        color: #d8cd9a;
+        text-decoration: underline;
     }
 
     /* Navbar */
@@ -338,7 +340,7 @@ a {
     }
     a.logo:hover {
         color:#d8cd9a !important;
-        border: 1px #d8cd9a solid;
+        
     }
     nav.navbar {
         background-color:rgba(45,46,62,0.9)!important;
