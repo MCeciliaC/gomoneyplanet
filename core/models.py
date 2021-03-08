@@ -2,14 +2,12 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 
-
 # Models Question, Month, Plan, Currency, Text, Social
 class Question(models.Model):
     id= models.SmallIntegerField(primary_key=True, verbose_name= "Id")
     order= models.SmallIntegerField(verbose_name= "Orden", null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name= "Título") 
     text= RichTextField(max_length=1000, verbose_name= "Desarrollo") 
-    updated= models.DateTimeField(auto_now_add = True, verbose_name= "Fecha de creación") 
 
     class Meta:
         verbose_name= "Pregunta frecuente"
@@ -22,10 +20,8 @@ class Plan(models.Model):
     id= models.AutoField(primary_key=True, verbose_name= "Id")
     name= models.CharField(max_length=100, verbose_name= "Nombre", null=True, blank=True)
     invertion= models.IntegerField(verbose_name= "Inversión inicial", null=True, blank=True)
-    time= models.IntegerField(verbose_name= "Duración en meses", null=True, blank=True)
-    name = models.CharField(max_length=200, verbose_name= "name", null=True, blank=True)
+    time= models.IntegerField(verbose_name= "Meses (3,6 o 12)", null=True, blank=True)
     percent= models.FloatField(verbose_name="Porcentaje mensual", null=True, blank=True)
-    active = models.BooleanField(verbose_name= "Plan activo", default=False)
 
     class Meta:
         verbose_name= "Plan disponible"
@@ -48,7 +44,7 @@ class Plan(models.Model):
         return result
 
 class Currency(models.Model):
-    name= models.CharField(max_length=200, unique=True, verbose_name= "Nombre", null=True, blank=True)
+    name= models.CharField(max_length=200, unique=True, verbose_name= "Nombre")
 
     class Meta:
         verbose_name= "Criptomoneda" 

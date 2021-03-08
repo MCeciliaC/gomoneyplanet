@@ -2,84 +2,161 @@
 
 {% block title %}Home{% endblock %}
 
+{% block thispage %}
+<style>
+  .word { 
+    font-size: 48px;
+    color: white;
+    line-height: 1em;
+    height: 1em;
+    padding: 0 14px 0 7px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+  .word:before {
+    content: '';
+    background-color: black;
+    width: 1px;
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 7px;
+  }
+
+  </style>
+
+{% endblock %}
 {% block content %} 
 
-<!-- Usuario administrador -->
+<!-- Admin -->
 {% if request.user.is_authenticated %}
 
   {% if request.user.is_staff %}
-  <div class="container text-center top bot bg col-11 col-md-8">
-      <h3 class="mt-5 ml-5 mr-5">¡Bienvenido otra vez {{request.user.first_name}}! ¿Qué deseas hacer?</h3> <br>
-    <button class="home col-xs-8 col-md-6"><a href="{% url 'admin:registration_profile_add' %}">Agregar nuevo Cliente</a></button><br>
-    <button class="home col-xs-8 col-md-6"><a href="{% url 'admin:registration_seller_add' %}">Agregar nuevo Vendedor</a></button> <br>
-    <button class="home col-xs-8 col-md-6 mb-5"><a href="admin/core/plan">Ver planes</a></button> <br>
-
-  </div>
+    <div class="container text-center top bot col-11 col-md-8">
+      <h4 class="m-5">¡Bienvenido otra vez {{request.user.first_name}}!<br>¿Qué deseas hacer?</h4> 
+      <div class="container col-12 text-center">
+        <a href="{% url 'admin:registration_seller_add' %}">
+          <input type="button" class="btn home container text-center col-sm-6 col-md-4 btn-block" value="Nuevo vendedor" />
+        </a>
+        <a href="admin/">
+          <input type="button" class="btn home container text-center col-sm-6 col-md-4 btn-block" value="Panel administrador" />
+        </a>
+      </div>
+    </div> <br><br>
   {% else %}
 
-<!-- Usuario autenticado -->
-    <div class="container text-center top bot bg col-11 col-md-7">
-      <h3 class="m-5">¡Hola {{request.user.first_name}}! Gracias por elegirnos, . <br>¿Qué deseas hacer?</h3> 
-      <!-- Botón para panel de vendedores -->
-      {% for sel in sellerlog %}
-      {% if sel.user == request.user and sel.seller_active == True %}
+<!-- Authenticated users -->
+    <div class="container text-center logged col-12 col-md-6 mt-5">
+      <h4 class="m-5">¡Hola {{request.user.first_name}}! Gracias por elegirnos.</h4> 
       
-      <button class="home col-xs-8 col-md-6 mb-5"><a href="{%url 'seller' %}">Ver mis clientes</a></button> <br>
-      {% endif %}
+      <!-- Button for sellers -->
+      {% for sel in sellerlog %}
+        {% if sel.user == request.user and sel.seller_active == True %}
+        <h4>¿Qué deseas hacer?</h4>
+        <div class="container text-center col-8 col-md-6">
+          <a href="{%url 'seller' %}">
+            <input type="button" class="btn home container text-center btn-block" value="Ir a mis clientes"/>
+          </a>
+        </div>
+        {% endif %}
       {% endfor %} 
-      <!-- Botón para panel de clientes -->
+      
+      <!-- Button for clients -->
       {% for cli in clientlog %}
-      {% if cli.user == request.user and cli.client_active == True %}
-      <button class="home col-xs-8 col-md-6 mb-5"><a href="{%url 'panel' user.id %}">Mi Inversión</a></button> <br>
-      {% endif %} 
+        {% if cli.user == request.user and cli.client_active == True %}
+        <h4>¿Qué deseas hacer?</h4>
+        <div class="container text-center col-8 col-md-6">
+          <a href="{%url 'panel' user.id %}">
+            <input type="button" class="btn home container text-center btn-block" value="Ir a mi Inversión" />
+          </a>
+        </div>
+        {% endif %} 
       {% endfor %}  
-      <p class="container text-center col-xs-11 col-md-8">Si todavía no ves el botón hacia tu panel, es porque aún tienes que
-        <a class="normal" href=""><strong>solicitar tu activación</strong>.</a> <br><br> Por consultas escribinos a 
-        <a class="normal" href="mailto:gomoneyplanet@gmail.com?&subject=The%20subject%20of%20the%20email&body=The%20body%20of%20the%20email">gomoneyplanet@gmail.com</a>
-      </p>
-    </div>     
-  {% endif %}
-
-<!-- Usuarios no autenticados -->
-{% else %}
-<div class="container col-6 text-center mb-5">
-  <h3>Servicio de Inversiones</h3>
-  <p>Abierto 24hs</p>
-</div>
-{% load static %}
-<div class="mobile">
-  <img src="{% static 'core/img/bg3.jpg' %}" alt="" class="welcome">
-</div>
-<div class="desktop">
-  <img src="{% static 'core/img/bg3.jpg' %}" alt="" class="welcome">
-</div>
-
-<div class="container button text-center">
-  <button class="home col-xs-4 "><a href="{%url 'login' %}">Ya estoy registrado</a></button> <br>
-</div>
-
-
-<!-- Publicidades activas -->
-{% for pub in publish %}
-  {% if pub.active == True %}
-    <div class="row col-12 mb-5 text-center">
-      <div class="container text-center col-12">
-        <h3 class="title text-center col-sm-12 col-md-7">
-          {{pub.title}}
-        </h3>
-          {% if pub.video %}      
-            <iframe class="col-sm-11 col-md-8" src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          {% endif %}            
-        <h5 class="col-sm-11 col-md-8">
-          {{pub.text|safe|linebreaks}}
-        </h5>
+      <div class="container text-center col-11 col-md-6 mt-5 mb-2">
+        <p>Por consultas, escribinos a 
+          <a class="normal" href="mailto:gomoneyplanet@gmail.com?&subject=The%20subject%20of%20the%20email&body=The%20body%20of%20the%20email">gomoneyplanet@gmail.com</a>
+        </p>
       </div>
-    </div> 
+    </div>  <br> 
   {% endif %}
-{% endfor %}
 
-    
+<!-- Unauthenticated users -->
+{% else %}
+  <div class="container zero top col-12 text-center mb-5">
+    <div class="desktop">
+      <span class="word mb-3" id="word">
+      </span> 
+    </div>
+    <div class="mobile">
+      <h2 class="mt-5">Servicio<br>de Inversiones</h4> <br>
+    </div>
+    <p>Abierto 24hs</p>
+  </div><br>
+  {% load static %}
+  <div class="zero text-center mt-5">
+    <img class="col-sm-12 col-md-9" src="{% static 'core/img/home.png' %}" alt="">
+  </div> 
+
+  <!-- Publicidades activas -->
+  <div class="row mb-5 mt-5">
+    <div class="container col-11">
+    {% for pub in publish %}
+      {% if pub.active == True %}
+        <div class="container text-center col-sm-12 col-md-8">
+          <h2>             
+              {{pub.title}}
+            </h2>
+            <div class="container zero text-justify col-12">
+            <p>{{pub.text|safe}}</p>
+          </div>
+        </div>        
+        {% if pub.video %}   
+        <div class="desktop container col-8 text-center mt-5" id="video">
+          <iframe src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>  
+        <div class="mobile container col-12 text-center mb-5">
+          <iframe height="100" src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        {% endif %}  
+      </div>
+      {% endif %}
+    {% endfor %}
+</div>          
 {% endif %}
+    
+<script>
+var words = ['Servicio de Inversiones'],
+  wordWrapper = document.getElementById('word'),
+  wordWrapperContent = wordWrapper.innerHTML,
+  addingWord = false,
+  counter = 1;
+
+setInterval(function(){
+
+  if(wordWrapperContent.length > 0 && !addingWord ) {
+    wordWrapper.innerHTML = wordWrapperContent.slice(0, -1);
+    wordWrapperContent = wordWrapper.innerHTML;
+  } else {
+    addingWord = true;
+  }
+
+  if( addingWord ){
+    if( wordWrapperContent.length < words[counter].length  ) {
+      wordWrapper.innerHTML = words[counter].slice(0, wordWrapperContent.length + 1);
+      wordWrapperContent = wordWrapper.innerHTML;
+    } 
+  }
+  if( counter == words.length) {
+    counter = 0;
+  }
+}, 150);
+
+/*
+setTimeout( function() {
+  window.location.href="#video";}, 5000);
+*/
+</script>
 
 {% endblock %} 
 

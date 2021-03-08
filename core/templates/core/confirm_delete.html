@@ -7,16 +7,19 @@
 {% for sel in sellerlog %}
   {% if sel.user == request.user %}
 
-    <div class="container text-center bg top bot col-sm-12 col-md-5 p-5">
-      <h3>Eliminar cliente</h3>
+    <div class="container text-center bg top bot col-sm-11 col-md-6 p-5">
+      <h3 class="black">Eliminar cliente</h3>
       <div>
         <form action="" method="post">{% csrf_token %}
-          <p>¿Estás seguro de que quieres borrar a <b>"{{ object }}"</b>?</p>
+          <p class="black">¿Estás seguro de que quieres borrar a <b>"{{ object }}"</b>?</p>
           <div class="text-center col-12"></div>
-          <input type="submit" class="btn home container text-centercol-sm-10 col-md-6 btn-block" value="Sí, borrar cliente" />
+          <input type="submit" class="btn home container text-center col-sm-10 col-md-6 btn-block" value="Sí, borrar cliente" />
+          <a href="{% url 'seller' %}">
+            <input type="button" class="btn home container text-center col-sm-10 col-md-6 btn-block" value="No, volver" />
+          </a>
         </form>
       </div>
-    </div>
+    </div> <br><br><br><br><br>
   
   {% endif %}
 {% endfor %}  

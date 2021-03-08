@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
+    #'clearcache',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,3 +139,7 @@ EMAIL_HOST_USER= 'gomoneyplanet@gmail.com'
 EMAIL_HOST_PASSWORD= config('USER_MAIL_PASSWORD')
 EMAIL_USE_TLS= True
 
+# email stuff
+DEFAULT_FROM_EMAIL = 'Go Money Planet'
+
+#DEFAULT_FROM_EMAIL = 'gomoneyplanet@gmail.com'

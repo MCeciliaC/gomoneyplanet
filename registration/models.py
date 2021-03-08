@@ -8,19 +8,18 @@ from django.utils import timezone
 from datetime import date, timedelta
 
 
-# Delete wallet
 def custom_upload_to(instance, filename):
     old_instance = Profile.objects.get(pk=instance.pk)
     old_instance.wallet.delete()
     return 'profiles/' + filename
 
-# Models 
-    
+
+# Models     
 class Seller(models.Model):
-    user = models.ForeignKey(User, verbose_name= "Nombre de usuario", on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name= "Nombre de usuario", on_delete=models.CASCADE)
+    created= models.DateField(verbose_name= "Fecha de inicio", auto_now_add=True)
     phone= models.IntegerField(verbose_name= "Teléfono", default=None, null=True, blank=True)
     seller_active = models.BooleanField(default=False, verbose_name= "Vendedor activo")
-    created= models.DateField(verbose_name= "Fecha de ingreso", default=None, null=True, blank=True)
 
     class Meta:
         verbose_name= "Vendedor"
@@ -45,11 +44,11 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)    
     start = models.DateField(verbose_name= "Fecha de inicio", auto_now_add=True)
     gain= models.IntegerField(verbose_name= "Ganancia", default=None, null=True, blank=True)
-    currency= models.ForeignKey(Currency, on_delete=models.PROTECT, verbose_name= "Moneda principal", null=True, blank=True)
-    plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.CASCADE)
+    currency= models.ForeignKey(Currency, on_delete=models.PROTECT, verbose_name= "Moneda principal")
+    plan= models.ForeignKey(Plan, verbose_name= "Plan elegido", on_delete=models.PROTECT)
     phone= models.IntegerField(verbose_name= "Teléfono", default=None, null=True, blank=True)
-    seller= models.ForeignKey(Seller, verbose_name= "Vendedor asignado", on_delete=models.CASCADE)
-    client_active = models.BooleanField(default=False, verbose_name= "Cliente activo")
+    seller= models.ForeignKey(Seller, verbose_name= "Vendedor asignado", on_delete=models.PROTECT)
+    client_active = models.BooleanField(default=True, verbose_name= "Cliente activo")
 
     class Meta:
         verbose_name= "Perfil Cliente"

@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% block title %}SignUp{% endblock %}
+
+{% block content %}
+<div class="container top logg bot col-11 col-md-6 mb-5">
+  <div class="row mt-3">
+    <div class="col-md-9 mx-auto mb-5">
+      <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}   
+        <h3 class="text-center mb-4">Registro</h3>
+        {% if messages %}
+          <div class="messages" style="color: red;">
+            {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-sm alert-{{ message.tags }}"{% endif %}>
+              {{ message }}
+            </div>
+            {% endfor %}
+          </ul>
+          </div>
+          {% endif %}
+        <p>
+          <input type="text" name="username" placeholder="Nombre de usuario" id="usernameField" value="{{fieldValues.username}}" class="form-control"/>
+        </p>
+        <div class="invalid_feedback invalid-feedback" style="display:none"></div>
+        {% if form.errors %}
+        {{form.errors}}
+        {% endif %}
+        <p class="text-sm text-success usernameSuccessOutput"></p>
+        <p>
+          <input type="text" name="first_name" required placeholder="Nombre" id="first_nameField" value="{{fieldValues.first_name}}" class="form-control"/>
+        </p>
+        <p>
+          <input type="text" name="last_name" required placeholder="Apellido" id="last_nameField" value="{{fieldValues.last_name}}" class="form-control"/>
+        </p>
+          <input type="email" name="email" placeholder="Email" class="form-control" id="emailField" value="{{fieldValues.email}}"/>
+        </p>
+        <div class="emailFeedBackArea invalid-feedback" style="display:none">
+        </div>  
+        <input type="password" name="password" placeholder="Password" class="form-control" id="passwordField"/>
+        <small class="float-right white py-3 col-3 mt-2 mb-2 text-center showPasswordToggle">Show</small>
+        <input type="submit" value="Register" class="btn home btn-block" />
+      </form>     
+    </div>
+  </div>
+</div>
+{% load static %}
+<script src="{% static 'js/register.js' %}"></script>
+
+{% endblock %}
+
+
+  

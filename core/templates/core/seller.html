@@ -2,165 +2,115 @@
 
 {% block title %}Clientes{% endblock %}
 
-
 {% block content %} 
 
-<!-- Compruebo si es el vendedor logueado -->
+<!-- Verify Seller -->
 {% for sel in sellerlog %}
   {% if sel.user == request.user %}
-            
-<!-- Mobile -->
-  <div class="mobile container">
-    <div class="container-col-12">
+              
+  <!-- Mobile -->
+    <div class="mobile container min col-12 m-3 mb-5">
       <h3 class="float-left ml-3 mb-5">Clientes de: <br> {{request.user.first_name}} {{request.user.last_name}}</h3>
-    </div> 
-
-    {% for client in clients %}
+      <div class="row bg col-12 text-center">
+      {% for client in clients %}
         {% if client.seller.user == request.user %}
-          {% if client.client_active == True%} 
-          <div class="container bg float-left col-12 p-5 mb-5">
-            <div class="row ">
-              <div class="container col-1 float-left">
+          {% if client.client_active == True%}  
+            <div class="row">
+              <div class="container col-2 float-left">
                 <a href="{% url 'update' client.id %}" class="edit">
                   <i class="fas fa-user-edit"></i>            
-                </a> 
+                </a>                   
               </div>
-              <div class="container col-1 float-left">
+              <div class="container col-2 float-left">
                 <a href="{% url 'delete' client.id %}" class="edit">
                   <i class="fas fa-user-minus"></i>                          
-                </a>         
+                </a>                   
               </div>
-            <div class="container col-9">
-              <h5>
-                {{client.user.first_name}} {{client.user.last_name}}
-              </h5>
-            </div>
-
-            </div>
-            <p class="col-12"> Inicio: {{client.start|date:"SHORT_DATE_FORMAT"}}</p>
-            <p class="col-12">Vencimiento: {{client.finaliza|date:"SHORT_DATE_FORMAT"}}</p>
-            <p class="col-12">Plan: € {{client.inversion}} por {{client.meses}} meses.</p>
-            {% if client.gain %}
-            <p class="col-12">Ganancia: € {{client.gain}}</p>
-            {% else %}
-            <p class="col-12">Ganancia: no registra</p>
-            {% endif %}
-            {% if client.currency %}
-            <p class="col-12">Moneda: {{client.currency}}</p>
-            {% endif %}
-            {% if client.phone %}
-            <p class="col-12">Teléfono: {{client.phone}}</p>
-            {% endif %}                    
-            <p class="col-12">Email: {{client.user.email}}</p>
-          </div> 
+              <div class="container col-8">
+                <h5 class="black">
+                  {{client.user.first_name}} {{client.user.last_name}}
+                </h5>          
+              </div>
+            </div>  
           {% endif %} 
         {% endif %} 
-        {% endfor %}
-        <div class="container col-12 text-center">
-          <button type="button" class="home col-sm-8 col-md-4 mb-5">
-            <a href="{% url 'create' %}" class="">
-              <i class="fas fa-user-plus"></i> Añadir nuevo cliente
-            </a>
-          </button> 
-          <a style="color:royalblue;" class="text-center" href="#init">Volver al inicio</a>
-        </div>
-      </div>
-
-
-<!-- Desktop -->
-<div class="container text-center desktop bg bot top col-xs-11 col-md-11 mt-5 p-5">
-  {% if 'ok' in request.GET %}
-  <p style="color:green;">
-    El cliente se ha actualizado correctamente.
-  </p>
-  {% elif 'created' in request.GET %}
-  <p style="color:green;">
-    Se ha añadido un nuevo cliente.
-  </p>
-  {% elif 'deleted' in request.GET %}
-  <p style="color:green;">
-    El cliente se ha eliminado correctamente.
-  </p>
-  {% endif %} 
-  <h3 class="float-left mb-10 ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}:</h3>
-  <div class="container float-left col-12 mt-2">   
+      {% endfor %}
+      </div>       
+    </div>  
+      
+  <!-- Desktop -->
+    <div class="container desktop col-11 mt-5 mb-3">
+      <h3 class="float-left ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}:</h3>
+    </div>
+    <div class="min zero">    
+      <div class="container text-center desktop bg top col-xs-11 col-md-11 p-5 mb-5">
+        {% if 'ok' in request.GET %}
+          <p style="color:green;">
+            El cliente se ha actualizado correctamente.
+          </p>
+        {% elif 'created' in request.GET %}
+          <p style="color:green;">
+            Se ha añadido un nuevo cliente.
+          </p>
+        {% elif 'deleted' in request.GET %}
+          <p style="color:green;">
+            El cliente se ha eliminado correctamente.
+          </p>
+        {% endif %} 
+    <div class="container float-left col-12 mt-2">   
       <p class="edit"></p>
       <p class="edit"></p>
       <p class="clientmd">Cliente</p>
-      <p class="clientmd">Vencimiento</p>
+      <p class="client">Vencimiento</p>
       <p class="client">Inversión</p>
       <p class="client">Ganancia</p>
       <p class="client">Monedas</p>
       <p class="client">Telefono</p>
       <p class="clientmd">Email</p>
-  </div> 
-  {% for client in clients %}
+    </div> 
+    {% for client in clients %}
       {% if client.seller.user == request.user %}
-      <div class="row line">
-          {% if client.client_active == True%}             
+        {% if client.client_active == True%}             
+          <div class="row line">
             <a href="{% url 'update' client.id %}" class="edit">
               <i class="fas fa-user-edit"></i>            
             </a> 
             <a href="{% url 'delete' client.id %}" class="edit">
               <i class="fas fa-user-minus"></i>                          
-            </a> 
-              {% if client %}                   
-              <p class="clientmd"> {{client.user.first_name}} {{client.user.last_name}}</p>
-              {% endif %}
-      
-              {% if client.start %}
-              <p class="clientmd">{{client.finaliza|date:"SHORT_DATE_FORMAT"}}</p>
-              {% else %}
-              <p class="clientmd">-</p>
-              {% endif %}
-            
-              {% if client.inversion %}
-              <p class="client">€ {{client.inversion}} x {{client.meses}} meses</p>
-              {% else %}
-              <p class="client">-</p>
-              {% endif %}
-      
+            </a>              
+            <p class="clientmd"> {{client.user.first_name}} {{client.user.last_name}}</p>
+            <p class="client">{{client.finaliza|date:"SHORT_DATE_FORMAT"}}</p>       
+            <p class="client">€ {{client.inversion}}/ {{client.meses}} m</p>
               {% if client.gain %}
-              <p class="client">€ {{client.gain}}</p>
+                <p class="client">€ {{client.gain}}</p>
               {% else %}
-              <p class="client pl-2"></p>
+                <p class="client "></p>
               {% endif %}
-      
-              {% if client.currency %}
+                  
+            {% if client.currency %}
               <p class="client">{{client.currency}}</p>
-              {% else %}
+            {% else %}
               <p class="client"></p>
-              {% endif %}
-            
-              {% if client.phone %}
+            {% endif %}                
+            {% if client.phone %}
               <p class="client">{{client.phone}}</p>
-              {% else %}
+            {% else %}
               <p class="client"></p>
-              {% endif %}  
-              <p class="clientmd">{{client.user.email}}</p>
+            {% endif %}  
+            <p class="clientmd">{{client.user.email}}</p>
           </div>
         {% endif %} 
-        {% endif %} 
-  {% endfor %}
-  <!-- Create client-->
-  <div class="container col-12 text-center">
-    <button type="button" class="home col-sm-8 col-md-4 mt-3">
-      <a href="{% url 'create' %}" class="">
-        <i class="fas fa-user-plus"></i> Añadir nuevo cliente
-      </a>
-    </button> 
+      {% endif %} 
+    {% endfor %}
+    <!-- Create client-->
+      <div class="container col-12 text-center">
+        <a href="{% url 'create' %}">
+          <input type="button" class="btn home container text-center col-sm-10 col-md-4 btn-block" value="Añadir nuevo cliente" />
+        </a>
+      </div>
+    </div>
   </div>
-</div>
-
   {% endif %}
 {% endfor %}  
-{% endblock %}
-
-
-
-
-
-
-
-
-
+  
+{% endblock %} 

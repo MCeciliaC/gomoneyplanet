@@ -31,6 +31,9 @@ urlpatterns = [
     path('update/<int:pk>/', login_required(ClientUpdate.as_view()), name='update'),
     path('delete/<int:pk>/', login_required(ClientDelete.as_view()), name='delete'),
     path('admin/', admin.site.urls),
+    #Path clear cache
+    #url(r'^admin/clearcache/', include('clearcache.urls')),
+    #url(r'^admin/', include(admin.site.urls)),
     # Paths de Auth
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('registration.urls')),

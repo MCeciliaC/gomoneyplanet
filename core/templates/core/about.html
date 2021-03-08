@@ -3,21 +3,19 @@
 {% block title %}About Us{% endblock %}
 
 {% block content %} 
-<div class="container top bot col-12 col-md-8">  
-  {% for question in questions %}
-  <div class="faq container col-12 mb-3">
-    <div class="container title col-12">
-      <div class="container col-12">     
-        <h4>{{question.title}}</h4>
+  <div class="container top bot col-12 col-md-8">  
+    {% for question in questions %}
+      <div class="faq container col-12 mb-3">
+        <div class="container col-12">    
+          <h4>{{question.title}}</h4>
+        </div>
+        <div class="container text-justify col-12">
+          <p>{{question.text|safe}}</p>
+        </div>
       </div>
-    </div>
-    <div class="container text-justify col-12">
-      <p class="faq">{{question.text|safe}}</p>
-    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
-<div class="container mobile text-center mb-3">
-  <a style="color:royalblue;" href="#init">Volver al inicio</a>
-</div>
+  <div class="container mobile text-center mb-3">
+    <a style="color:royalblue;" href="#init">Volver al inicio</a>
+  </div>
 {% endblock %}

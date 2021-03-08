@@ -6,14 +6,15 @@ from .models import Question, Plan, Currency, Text, Social
 class QuestionAdmin(admin.ModelAdmin):
     readonly_fields= ('id',)
     verbose_name= "Preguntas frencuentes"
-    list_display= ('title', 'order', 'updated',)
+    list_display= ('title', 'order')
 
 class PlanAdmin(admin.ModelAdmin):
     verbose_name= "Plan"
-    list_display= ('name', 'invertion', 'time', 'percent', 'active', 'result')
+    list_display= ('name', 'invertion', 'time', 'percent', 'result')
     
 class CurrencyAdmin(admin.ModelAdmin):
-    verbose_name= "Criptomonedas"
+    verbose_name= "Criptomoneda"
+    verbose_name_plural= "Criptomonedas"
 
 class TextAdmin(admin.ModelAdmin):
     verbose_name= "Publicidad"
