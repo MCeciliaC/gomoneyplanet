@@ -4,7 +4,6 @@ from django.utils import timezone
 
 # Models Question, Month, Plan, Currency, Text, Social
 class Question(models.Model):
-    id= models.SmallIntegerField(primary_key=True, verbose_name= "Id")
     order= models.SmallIntegerField(verbose_name= "Orden", null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name= "Título") 
     text= RichTextField(max_length=1000, verbose_name= "Desarrollo") 

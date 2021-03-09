@@ -2,6 +2,15 @@
 
 {% block title %}Clientes{% endblock %}
 
+{% block thispage %}
+<style>
+.buttonspay {
+  width: 60vw;
+  margin-left: 20vw;
+}
+</style>
+{% endblock %}
+
 {% block content %} 
 
 <!-- Verify Seller -->
@@ -35,15 +44,22 @@
           {% endif %} 
         {% endif %} 
       {% endfor %}
-      </div>       
+      <!-- Create client-->
+      <div class="container col-12 text-center">
+        <a href="{% url 'create' %}">
+          <input type="button" class="btn home container text-center col-sm-10 col-md-4 btn-block" value="Nuevo cliente" />
+        </a>
+      </div>    
+      </div>   
     </div>  
       
   <!-- Desktop -->
-    <div class="container desktop col-11 mt-5 mb-3">
-      <h3 class="float-left ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}:</h3>
-    </div>
+  <div class="container desktop col-11 mt-5">
+    <h3 class="float-left ml-3">Clientes de {{request.user.first_name}} {{request.user.last_name}}:</h3>
+  </div>
+
     <div class="min zero">    
-      <div class="container text-center desktop bg top col-xs-11 col-md-11 p-5 mb-5">
+      <div class="container text-center desktop bg top col-xs-11 col-md-11 p-5">
         {% if 'ok' in request.GET %}
           <p style="color:green;">
             El cliente se ha actualizado correctamente.
@@ -103,14 +119,152 @@
       {% endif %} 
     {% endfor %}
     <!-- Create client-->
-      <div class="container col-12 text-center">
-        <a href="{% url 'create' %}">
-          <input type="button" class="btn home container text-center col-sm-10 col-md-4 btn-block" value="Añadir nuevo cliente" />
-        </a>
+      <div class="row col-12 text-center">
+        <div class="container col-3 zero">
+          <a href="{% url 'create' %}">
+            <input type="button" class="btn home container float-left col-md-8 btn-block" value="Nuevo cliente" />
+          </a>
+        </div>
+        <div class="container col-3 zero">
+          <!-- Paypal -->   
+          <a onclick="show()">    
+            <input type="button"  class="btn home container float-left col-md-8 btn-block" value="Pagar"/> 
+          </a>
+        </div>
       </div>
     </div>
   </div>
   {% endif %}
 {% endfor %}  
-  
+
+<div class="container text-center col-4 mb-5">
+  <!-- BOTON 50 -->
+  <div id="smart-button-container">
+    <div id="paypal-button-container50"></div>
+  </div> 
+  <!-- BOTON 100 -->  
+  <div id="smart-button-container">
+    <div id="paypal-button-container100"></div>
+  </div>
+  <!-- BOTON 300 -->  
+  <div id="smart-button-container">
+    <div id="paypal-button-container300"></div>   
+  </div>
+  <!-- BOTON 500 -->  
+  <div id="smart-button-container">
+    <div id="paypal-button-container500"></div> 
+  </div> 
+</div>
+
+<!-- Script -->
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR" data-sdk-integration-source="button-factory"></script>
+
+<script>
+/* Button 50 */
+function show(){
+  function initPayPalButton() {
+  paypal.Buttons({
+      style: {
+      shape: 'pill',
+      color: 'blue',
+      layout: 'vertical',
+      label: 'checkout',      
+      },
+      createOrder: function(data, actions) {
+      return actions.order.create({
+          purchase_units: [{"description":"PLAN DE €50","amount":{"currency_code":"EUR","value":50}}]
+      });
+      },
+      onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name + '!');
+      });
+      },
+      onError: function(err) {
+      console.log(err);
+      }
+  }).render('#paypal-button-container50');
+  }
+  initPayPalButton();
+
+/* Button 100 */
+  function initPayPalButton() {
+    paypal.Buttons({
+    style: {
+        shape: 'pill',
+        color: 'blue',
+        layout: 'vertical',
+        label: 'checkout',      
+    },
+    createOrder: function(data, actions) {
+        return actions.order.create({
+        purchase_units: [{"description":"PLAN DE €100","amount":{"currency_code":"EUR","value":100}}]
+        });
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+        alert('Transaction completed by ' + details.payer.name.given_name + '!');
+        });
+    },
+    onError: function(err) {
+        console.log(err);
+    }
+    }).render('#paypal-button-container100');
+  }
+  initPayPalButton();
+
+/* Button 300 */
+  function initPayPalButton() {
+  paypal.Buttons({
+    style: {
+    shape: 'pill',
+    color: 'blue',
+    layout: 'vertical',
+    label: 'checkout',  
+    },
+    createOrder: function(data, actions) {
+    return actions.order.create({
+        purchase_units: [{"description":"PLAN DE €300","amount":{"currency_code":"EUR","value":300}}]
+    });
+    },
+    onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+        alert('Transaction completed by ' + details.payer.name.given_name + '!');
+    });
+    },
+    onError: function(err) {
+    console.log(err);
+    }
+  }).render('#paypal-button-container300');
+  }
+  initPayPalButton();
+
+/* Button 500 */  
+  function initPayPalButton() {
+  paypal.Buttons({
+  style: {
+    shape: 'pill',
+    color: 'blue',
+    layout: 'vertical',
+    label: 'checkout',  
+  },
+  createOrder: function(data, actions) {
+    return actions.order.create({
+    purchase_units: [{"description":"PLAN DE €500","amount":{"currency_code":"EUR","value":500}}]
+    });
+  },
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+    });
+  },
+  onError: function(err) {
+    console.log(err);
+  }
+  }).render('#paypal-button-container500');
+  }
+  initPayPalButton();
+}
+</script>
+
 {% endblock %} 

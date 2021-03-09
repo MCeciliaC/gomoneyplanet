@@ -104,7 +104,6 @@ label {
 .date {
     border: #d8cd9a solid 1px;
     background-color:rgba(45,46,62,0.9)!important;
-    margin-bottom: ;
 }
 
 /* Footer */
@@ -165,17 +164,6 @@ div.logg {
     background-color: rgba(45,46,62,0)!important;
     border: 1px #d8cd9a solid;
 }
-div.panel-bot {
-    border: #d8cd9a solid 1px;
-    min-height: 16vh;
-    margin-bottom: 3vh;
-    padding-right: 5vh;
-    padding-left: 4vh;
-    padding-top: 3vh;
-    color: white;
-    background-color: rgba(45,46,62,0.9)!important;
-} 
-
 
 div.min {
     min-height: 50vh;
@@ -339,9 +327,14 @@ a {
         color:#f6f1f7 !important;
     }
     a.logo:hover {
-        color:#d8cd9a !important;
-        
+        color:#d8cd9a !important;    
     }
+    a.logo {
+        transition-property: color;
+        transition-duration: 0.7s;
+        transition-timing-function: linear;
+        transition-delay: 0,5s;
+      }
     nav.navbar {
         background-color:rgba(45,46,62,0.9)!important;
         width: 100vw;

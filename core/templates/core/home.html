@@ -37,7 +37,9 @@
     transition-timing-function: linear;
     transition-delay: 0,5s;
   }
- 
+  h2.title {
+    font-family: 'Alfa Slab One', cursive;
+  }
   @media (min-width: 200px) and (max-width:768px){ 
     .word {  
     font-size: 2.4em !important;
@@ -45,6 +47,9 @@
   }
   .word:before {
     display:none;
+  }
+  .pub {
+    font-size: 1em;
   }
   }
   </style>
@@ -124,30 +129,31 @@
   </div> 
 
   <!-- Publicidades activas -->
-  <div class="row mb-5 mt-5">
-    <div class="container col-11">
+  <div class="container col-12 text-center mt-5 mb-5">
     {% for pub in publish %}
       {% if pub.active == True %}
-        <div class="container text-center col-sm-12 col-md-8">
-          <h2>             
-              {{pub.title}}
-            </h2>
-            <div class="container zero text-justify col-12">
-            <p>{{pub.text|safe}}</p>
-          </div>
-        </div>        
-        {% if pub.video %}   
-        <div class="desktop container col-8 text-center mt-5" id="video">
-          <iframe src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>  
-        <div class="mobile container col-12 text-center mb-5">
-          <iframe height="100" src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      <div class="container col-sm-11 col-md-7">
+        <h2 class="title mb-3">             
+          {{pub.title}}
+        </h2>
+        <div class="container zero col-12">
+          <h5 class="pub">{{pub.text|safe}}</h5>            
         </div>
-        {% endif %}  
+        
+      </div>
+      {% if pub.video %} 
+      <div class="container desktop col-sm-11 col-md-8" id="video">
+
+          <iframe src="{{pub.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ 
       </div>
       {% endif %}
+      {% endif %}
     {% endfor %}
-</div>          
+
+  </div>
+     
 {% endif %}
     
 <script>

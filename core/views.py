@@ -6,11 +6,6 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from .models import Question, Currency, Text, Plan
 from registration.models import Profile, Seller
-#from django.contrib.auth.models import User
-#from django.conf import settings
-#User = settings.AUTH_USER_MODEL
-#from registration.models import User
-
 from datetime import datetime
 from datetime import date, timedelta
 from django.urls import reverse_lazy
